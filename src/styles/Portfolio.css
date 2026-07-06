@@ -1,9 +1,9 @@
 /* 포트폴리오 섹션 */
 .portfolio {
-  padding: 220px 0 120px 0;
+  padding: 100px 0 120px 0;
   background: var(--light-color);
   position: relative;
-  margin-top: -150px;
+  margin-top: 0;
   --blend-opacity: 0;
   scroll-snap-align: start;
 }

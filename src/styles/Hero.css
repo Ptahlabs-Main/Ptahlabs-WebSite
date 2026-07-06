@@ -50,66 +50,74 @@
   vector-effect: non-scaling-stroke;
 }
 
-/* 좌우 헤어라인 장식 */
-.hero-side-line {
+/* 좌우 헤어라인 + 세로 라벨 (로고 양옆) */
+.hero-side {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  z-index: 5;
+}
+
+.hero-side-left { left: 48px; }
+.hero-side-right { right: 48px; }
+
+.hero-side-line {
   width: 1px;
-  height: 220px;
+  height: 120px;
   background: rgba(40, 57, 26, 0.25);
-  z-index: 5;
 }
 
-.hero-side-line-left { left: 44px; }
-.hero-side-line-right { right: 44px; }
-
-/* 모서리 요소 */
-.hero-corner {
-  position: absolute;
-  z-index: 5;
-  margin: 0;
-}
-
-.hero-corner-tl {
-  top: 40px;
-  left: 44px;
-  height: 40px;
-  width: auto;
-}
-
-.hero-corner-tr {
-  top: 52px;
-  right: 44px;
+.hero-side-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
   font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   color: #8a8a80;
 }
 
-.hero-corner-bl {
-  bottom: 40px;
-  left: 44px;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: #8a8a80;
+/* 좌측 라벨은 아래→위로 읽혀 중앙을 향하도록 */
+.hero-side-left .hero-side-label {
+  transform: rotate(180deg);
 }
 
 @media (max-width: 768px) {
-  .hero-side-line { display: none; }
-
-  .hero-corner-tl {
-    top: 24px;
-    left: 20px;
-    height: 32px;
+  /* 좁은 화면: 좌우 → 상단 왼쪽 / 하단 오른쪽으로 엇갈리게 가로 배치 */
+  .hero-side {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    top: auto;
+    bottom: auto;
+    transform: none;
   }
 
-  .hero-corner-tr { display: none; }
+  .hero-side-left {
+    left: 24px;
+    top: 15%;
+  }
 
-  .hero-corner-bl {
-    bottom: 24px;
-    left: 20px;
+  .hero-side-right {
+    right: 24px;
+    bottom: 15%;
+  }
+
+  .hero-side-label {
+    writing-mode: horizontal-tb;
+    font-size: 0.64rem;
+  }
+
+  .hero-side-left .hero-side-label {
+    transform: none;
+  }
+
+  .hero-side-line {
+    width: 32px;
+    height: 1px;
   }
 }
 
