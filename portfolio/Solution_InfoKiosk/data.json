@@ -1,0 +1,51 @@
+{
+  "id": "Solution_InfoKiosk",
+  "title": "정보 키오스크 솔루션",
+  "tags": ["kiosk", "information", "interactive", "touchscreen", "ui/ux"],
+  "images": [],
+  "thumbnail": "",
+  "description": "엑셀 데이터 기반 검색 기능을 갖춘 전시 안내 키오스크",
+  "year": "2025",
+  "lastmod": "2025-12-02",
+  "isSolution": true,
+
+  "sections": [
+    {
+      "type": "text",
+      "content": "박물관, 전시관, 체험관을 위한 정보 검색 키오스크 솔루션입니다. 엑셀 파일을 기반으로 방대한 양의 데이터를 손쉽게 관리하고, 관람객이 터치스크린을 통해 원하는 정보를 빠르게 검색할 수 있습니다. 키워드 검색, 카테고리 필터링, 상세 정보 열람 등 다양한 정보 탐색 기능을 제공합니다."
+    },
+    {
+      "type": "exhibits",
+      "title": "주요 기능",
+      "items": [
+        {
+          "title": "엑셀 기반 데이터 관리",
+          "description": "별도의 프로그래밍 지식 없이 엑셀 파일만으로 전시 정보를 관리할 수 있습니다.\n\n담당자가 직접 엑셀에서 데이터를 추가, 수정, 삭제하면 키오스크에 바로 반영되어 유지보수가 간편합니다.",
+          "tags": ["information", "accessibility"],
+          "images": []
+        },
+        {
+          "title": "키워드 검색 기능",
+          "description": "관람객이 원하는 키워드를 입력하면 관련 정보를 빠르게 검색할 수 있습니다.\n\n인물명, 사건명, 연도, 장소 등 다양한 검색 조건을 지원하며, 초성 검색도 가능합니다.",
+          "tags": ["interactive", "touchscreen", "ui/ux"],
+          "images": []
+        },
+        {
+          "title": "맞춤형 디자인",
+          "description": "박물관의 전시 테마와 브랜드 아이덴티티에 맞춰 UI 디자인을 자유롭게 커스터마이징할 수 있습니다.\n\n컬러, 레이아웃, 폰트 등을 전시 공간에 어울리도록 조정하여 통일된 관람 경험을 제공합니다.",
+          "tags": ["ui/ux", "customization", "kiosk"],
+          "images": []
+        }
+      ]
+    }
+  ],
+
+  "relatedProjects": [
+    {
+      "id": "2025_Busan_Democracy",
+      "title": "부산 민주공원",
+      "description": "정보 키오스크 솔루션 적용 사례",
+      "thumbnail": ""
+    }
+  ]
+}

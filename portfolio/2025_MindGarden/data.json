@@ -1,0 +1,42 @@
+{
+  "id": "2025_MindGarden",
+  "title": "휴식정원 / Mind Garden Diary",
+  "tags": ["interactive", "media-art"],
+  "images": [],
+  "thumbnail": "",
+  "description": "감정 기록이 가상 정원의 성장으로 이어지는 멘탈 웰니스 앱 기획",
+  "descriptionTitle": "휴식정원",
+  "detailedDescription": [
+    "휴식정원은 감정 기록이 가상 정원의 성장으로 이어지는 멘탈 웰니스 앱 기획안입니다.",
+    "색채 테라피와 Unity 기반 3D 정원을 결합하여 사용자의 감정 케어를 시각적 성장으로 보여주는 컨셉입니다.",
+    "프로토타입과 기획서를 공모전에 제출하였습니다."
+  ],
+  "year": "2025",
+  "client": "공모전 기획안",
+  "location": "대한민국",
+  "country": "KR",
+  "hidden": true,
+  "lastmod": "2025-12-03",
+  "sections": [
+    {
+      "type": "text",
+      "title": "기획 의도",
+      "content": "현대인의 스트레스와 감정 관리 문제를 해결하기 위해 기획한 멘탈 웰니스 앱입니다.\n기존 감정 일기 앱의 한계를 넘어, 감정 기록이 시각적 성장으로 이어지는 새로운 경험을 설계했습니다. 색채 테라피와 가상 정원 성장이라는 치유적 요소를 결합한 컨셉입니다."
+    },
+    {
+      "type": "text",
+      "title": "핵심 기능 설계",
+      "content": "5가지 감정 중 하나를 선택하거나 표정 인식 AI가 자동으로 감정을 분석합니다.\n색채 테라피 기능으로 감정의 반대 색상 꽃이 정원에 피어나며, 기록할수록 땅이 확장되고 식물이 성장합니다.\nAI 맞춤 미션과 GPS/만보기 자동 측정 기능을 제공하고, 나이테 컨셉으로 1년간의 기록을 시각화하는 앨범 기능도 포함됩니다."
+    },
+    {
+      "type": "text",
+      "title": "기술 스택",
+      "content": "Unity로 가상 정원 3D 환경을 구현하고, MediaPipe와 OpenCV로 표정을 인식합니다.\nVision API로 사진을 분석하며, GPS, 가속도계, HealthKit, Screen Time API 등 다양한 센서를 활용합니다.\n향후 GPT API, STT/TTS, IoT 연동도 고려하고 있습니다."
+    },
+    {
+      "type": "text",
+      "title": "프로토타입",
+      "content": "Unity 기반 3D 정원 환경 프로토타입을 개발하여 공모전에 제출했습니다.\n감정에 따른 색채 테라피 효과와 정원 성장 시스템의 핵심 로직을 구현했습니다."
+    }
+  ]
+}
