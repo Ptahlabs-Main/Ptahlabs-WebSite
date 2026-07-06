@@ -37,7 +37,7 @@
   transform: translate(-50%, -50%);
   width: min(76vw, 600px);
   height: auto;
-  aspect-ratio: 506 / 504;
+  aspect-ratio: 55.13 / 54.5;
   color: var(--primary-color);
   opacity: 0.16;
   pointer-events: none;
@@ -45,6 +45,7 @@
 }
 
 /* 확대해도 선 굵기 1px 유지 */
+.hero-motif polygon,
 .hero-motif path {
   vector-effect: non-scaling-stroke;
 }
@@ -63,8 +64,53 @@
 .hero-side-line-left { left: 44px; }
 .hero-side-line-right { right: 44px; }
 
+/* 모서리 요소 */
+.hero-corner {
+  position: absolute;
+  z-index: 5;
+  margin: 0;
+}
+
+.hero-corner-tl {
+  top: 40px;
+  left: 44px;
+  height: 40px;
+  width: auto;
+}
+
+.hero-corner-tr {
+  top: 52px;
+  right: 44px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #8a8a80;
+}
+
+.hero-corner-bl {
+  bottom: 40px;
+  left: 44px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #8a8a80;
+}
+
 @media (max-width: 768px) {
   .hero-side-line { display: none; }
+
+  .hero-corner-tl {
+    top: 24px;
+    left: 20px;
+    height: 32px;
+  }
+
+  .hero-corner-tr { display: none; }
+
+  .hero-corner-bl {
+    bottom: 24px;
+    left: 20px;
+  }
 }
 
 .hero-content {
@@ -73,9 +119,9 @@
 }
 
 .hero-title {
-  font-size: clamp(2.2rem, 7.5vw, 5.2rem);
+  font-size: clamp(2.4rem, 8vw, 6rem);
   margin-bottom: 1.6rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.4em;
   margin-right: -0.4em;
   line-height: 1.2;

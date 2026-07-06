@@ -1,54 +1,37 @@
-// PTAHLABS 로고 라인 문양 (벡터, 배경 장식용 단순화 버전)
-// - 원본 PNG(Line@4x.png) 픽셀 분석으로 좌표 추출 후 접점 스냅
-// - 원본의 "두께 표현" 이중선(림 안쪽 선, 패널 쌍 세로선, 캡)은 1px 극세선에서
-//   이중선으로 보여 배경 용도에 맞게 제거 — 실루엣과 구조는 동일
+// PTAHLABS 로고 마크 (디자이너 원본 벡터: public/images/logo/LogoAsset.svg 에서 마크 부분 추출)
+// - 원본은 면(fill) 5조각으로 구성 → 여기서는 아웃라인(stroke)으로 렌더링
 // - stroke는 currentColor를 따르고, vector-effect로 확대해도 선 굵기가 유지됨
-// - <g data-faces>: 면 단위 닫힌 폴리곤 (향후 마스크/클립으로 내부에 미디어를 채울 때 사용)
+// - showFaces: 원본 그대로 면을 채워서 렌더링 (향후 마스크/클립으로 내부에 미디어를 채울 때 사용)
+const POLYGONS = [
+  { face: 'panel-1', points: '34.89 30.78 34.89 50.18 37.24 48.82 37.24 30.02 21.85 21.13 27.42 17.91 27.42 13.13 15.98 19.87 34.89 30.78' },
+  { face: 'panel-2', points: '25.08 21.13 38.86 29.09 38.86 47.88 42.03 46.05 42.03 27.54 28 19.44 25.08 21.13' },
+  { face: 'back-wall', points: '29.13 32.6 29.13 53.5 33.27 51.11 33.27 31.72 12.76 19.88 27.42 11.25 27.42 0 .05 15.8 .05 15.81 29.13 32.6' },
+  { face: 'right-wall', points: '29.04 .84 29.04 10.3 29.04 12.18 29.04 18.17 29.04 18.18 43.65 26.61 43.65 45.12 54.97 38.58 54.97 15.8 29.04 .84' },
+  { face: 'left-wall', points: '27.51 33.53 .05 17.68 .05 38.58 27.51 54.44 27.51 33.53' },
+];
+
 const LogoLineMotif = ({ className, showFaces = false }) => {
   return (
     <svg
       className={className}
-      viewBox="0 0 506 504"
+      viewBox="0 0 55.13 54.5"
       fill="none"
       stroke="currentColor"
       strokeWidth="1"
-      strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      {/* ── 면 (기본 비표시, 마스크/클립용) ── */}
-      {showFaces && (
-        <g data-faces fill="currentColor" stroke="none" opacity="0.06">
-          <path data-face="left-wall" d="M2 164 L252 308 L252 501 L2 357 Z" />
-          <path data-face="right-wall" d="M267 8 L504 145 L504 356 L267 219 Z" />
+      {showFaces ? (
+        <g data-faces fill="currentColor" stroke="none">
+          {POLYGONS.map((p) => (
+            <polygon key={p.face} data-face={p.face} points={p.points} />
+          ))}
         </g>
+      ) : (
+        POLYGONS.map((p) => (
+          <polygon key={p.face} data-face={p.face} points={p.points} />
+        ))
       )}
-
-      {/* ── 왼쪽 벽 (외곽 실루엣 + 상단 모서리) ── */}
-      <path d="M250 3 L2 147 L2 357 L252 501 L252 308" />
-      <path d="M2 164 L252 308" />
-
-      {/* ── 오른쪽 벽 ── */}
-      <path d="M267 8 L504 145 L504 356 L400 416" />
-      <path d="M267 8 L267 172" />
-
-      {/* ── 상단 슬릿 (브래킷 왼쪽 끝 수직 모서리) ── */}
-      <path d="M250 3 L250 109" />
-      <path d="M250 122 L250 168" />
-
-      {/* ── 브래킷 1 (꺾인 패널) ── */}
-      <path d="M250 109 L115 184 L304 293 L304 472" />
-
-      {/* ── 브래킷 2 ── */}
-      <path d="M250 168 L198 196 L342 278 L342 450" />
-
-      {/* ── 패널 3 (직선) ── */}
-      <path d="M267 172 L400 246 L400 416" />
-
-      {/* ── 바닥 연결선 ── */}
-      <path d="M252 501 L304 472" />
-      <path d="M304 472 L342 450" />
-      <path d="M342 450 L400 416" />
     </svg>
   );
 };

@@ -10,6 +10,15 @@ const Hero = () => {
       <span className="hero-side-line hero-side-line-left" aria-hidden="true" />
       <span className="hero-side-line hero-side-line-right" aria-hidden="true" />
 
+      {/* 모서리 요소 */}
+      <img
+        className="hero-corner hero-corner-tl"
+        src="/images/logo/2x/SignColor@2x.png"
+        alt="PTAHLABS 로고"
+      />
+      <p className="hero-corner hero-corner-tr">MEDIA ART · DIGITAL EXHIBITION</p>
+      <p className="hero-corner hero-corner-bl">ptahlabs@naver.com</p>
+
       {/* 콘텐츠 */}
       <div className="container hero-content">
         <h1 className="hero-title">PTAHLABS</h1>

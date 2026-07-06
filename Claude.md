@@ -431,15 +431,16 @@ git push origin main
 ### 2026-07-06
 - **Hero 최종 디자인 적용 (설계도 스타일, 시안 4)**
   - 크림색 배경(#f7f5ee) + 로고 라인 문양을 배경 중앙에 배치
-  - **로고를 벡터로 재제작**: src/components/LogoLineMotif.js
-    - 원본 PNG(Line@4x.png) 픽셀 분석으로 전체 선분 좌표를 추출해 SVG로 트레이싱
-    - 접점 스냅 정리 + 원본의 두께 표현 이중선 제거 (배경용 단순화 버전, 실루엣 동일)
+  - **로고 마크 벡터 적용**: src/components/LogoLineMotif.js
+    - 디자이너 원본 벡터(public/images/logo/LogoAsset.svg, 자산 1.svg)에서 마크 폴리곤 5조각 추출
+    - 면(fill) 원본을 아웃라인(stroke)으로 렌더링, 각 폴리곤에 data-face 이름 부여
     - vector-effect: non-scaling-stroke로 어떤 크기에서도 선 굵기 1px 유지
     - stroke가 currentColor를 따라 CSS로 색상 제어 가능
     - `showFaces` prop: 면 단위 폴리곤 그룹 (향후 로고 내부에 작업물 영상/이미지를
       마스크로 채우는 연출용으로 구조화해둠)
-  - 와이드 트래킹(0.4em) 볼드(700) 타이포 PTAHLABS, 최대 5.2rem
+  - 와이드 트래킹(0.4em) 볼드(800) 타이포 PTAHLABS, 최대 6rem
   - 좌우 가장자리에 세로 헤어라인 장식 (모바일에서는 숨김)
+  - 모서리 요소: 좌상단 녹색 로고 마크, 우상단 트래킹 텍스트(모바일 숨김), 좌하단 이메일
   - 마우스 스포트라이트 JS 제거 (Hero가 순수 정적 컴포넌트로)
   - pages/hero-drafts.js: 시안 비교용 임시 페이지 (noindex, 확정 후 삭제 예정)
 - **Hero 다크 테마 전환 (4차, 오로라 제거)**
