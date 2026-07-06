@@ -148,10 +148,9 @@ const Portfolio = () => {
   return (
     <section id="portfolio" className="portfolio">
       <div className="container">
-        <h2 className="section-title">포트폴리오</h2>
-
-        <div className="portfolio-filter">
-          {/* 1단계: 카테고리 선택 */}
+        {/* 타이틀(좌) + 카테고리 필터(우) */}
+        <div className="portfolio-header">
+          <h2 className="section-title">포트폴리오</h2>
           <div className="filter-categories">
             <button
               className={`category-btn ${!selectedCategory ? 'active' : ''}`}
@@ -169,28 +168,28 @@ const Portfolio = () => {
               </button>
             ))}
           </div>
-
-          {/* 2단계: 선택된 카테고리의 세부 태그 */}
-          {selectedCategory && tagsByCategory[selectedCategory] && (
-            <div className="filter-tags">
-              <button
-                className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
-                onClick={() => handleFilterChange('all')}
-              >
-                전체
-              </button>
-              {tagsByCategory[selectedCategory].map((tag) => (
-                <button
-                  key={tag}
-                  className={`filter-btn ${activeFilter === tag ? 'active' : ''}`}
-                  onClick={() => handleFilterChange(tag)}
-                >
-                  {getTagLabel(tag)}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
+
+        {/* 선택된 카테고리의 세부 태그 */}
+        {selectedCategory && tagsByCategory[selectedCategory] && (
+          <div className="filter-tags">
+            <button
+              className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
+              onClick={() => handleFilterChange('all')}
+            >
+              전체
+            </button>
+            {tagsByCategory[selectedCategory].map((tag) => (
+              <button
+                key={tag}
+                className={`filter-btn ${activeFilter === tag ? 'active' : ''}`}
+                onClick={() => handleFilterChange(tag)}
+              >
+                {getTagLabel(tag)}
+              </button>
+            ))}
+          </div>
+        )}
 
         <div className="portfolio-grid">
           {filteredItems.map((item, index) => (
@@ -217,19 +216,15 @@ const Portfolio = () => {
                     <span dangerouslySetInnerHTML={{ __html: item.title.replace(' / ', '<br/>') }} />
                   </div>
                 )}
-                <div className="portfolio-card-overlay">
-                  <div className="portfolio-card-tags">
-                    {item.tags.filter(tag => tag !== 'solution').map(tag => (
-                      <span key={tag} className="portfolio-card-tag">#{getTagLabel(tag)}</span>
-                    ))}
-                  </div>
-                </div>
               </div>
               <div className="portfolio-card-content">
+                <p className="portfolio-card-label">
+                  {[
+                    ...item.tags.filter(tag => tag !== 'solution').slice(0, 2).map(getTagLabel),
+                    item.year
+                  ].filter(Boolean).join(' · ')}
+                </p>
                 <h3 className="portfolio-card-title" dangerouslySetInnerHTML={{ __html: item.title.replace(' / ', '<br/>') }} />
-                {item.year && (
-                  <span className="portfolio-card-year">{item.year}</span>
-                )}
               </div>
             </div>
           ))}

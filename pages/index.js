@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Header from '../src/components/layouts/Header'
 import Hero from '../src/components/1_Hero'
 import Portfolio from '../src/components/2_Portfolio'
-import CI from '../src/components/4_CI'
 import Contact from '../src/components/5_Contact'
 import Footer from '../src/components/layouts/Footer'
 
@@ -34,7 +33,6 @@ export default function Home() {
         <Header />
         <Hero />
         <Portfolio />
-        <CI />
         <Contact />
         <Footer />
       </div>

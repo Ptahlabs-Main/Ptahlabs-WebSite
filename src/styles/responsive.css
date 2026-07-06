@@ -109,11 +109,11 @@
   }
 
   .section {
-    padding: 20px;
+    padding: 32px 0 0 0;
   }
 
   .section h3 {
-    font-size: 1.4rem;
+    font-size: 0.9rem;
     margin-bottom: 20px;
   }
 
@@ -150,8 +150,9 @@
 
 @media (max-width: 576px) {
   .hero-title {
-    font-size: 2.2rem;
-    letter-spacing: 1px;
+    font-size: 1.6rem;
+    letter-spacing: 0.32em;
+    margin-right: -0.32em;
   }
 
   .section-title {
@@ -200,7 +201,8 @@
 
   .exhibit-card {
     flex-direction: column;
-    padding: 20px;
+    gap: 20px;
+    padding: 0;
   }
 
   .exhibit-image-wrapper {

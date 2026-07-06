@@ -15,6 +15,11 @@
   },
   "tags": {
     "_comment1": "==== 기술(Technology) ====",
+    "ai": {
+      "category": "technology",
+      "name": "AI",
+      "description": "인공지능 활용 기술"
+    },
     "3d-model": {
       "category": "technology",
       "name": "3D 모델링",

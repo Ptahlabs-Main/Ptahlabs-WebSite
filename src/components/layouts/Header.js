@@ -40,20 +40,20 @@ const Header = () => {
           // 전환 구간: 점진적으로 나타남
           const progress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
           header.style.padding = '5px 0';
-          header.style.boxShadow = `0 5px 20px rgba(0, 0, 0, ${0.1 * progress})`;
+          header.style.boxShadow = `0 2px 16px rgba(40, 57, 26, ${0.06 * progress})`;
           header.style.opacity = progress.toString();
           header.style.transform = `translateY(${-20 * (1 - progress)}px)`;
         } else {
           // 완전히 표시
           header.style.padding = '5px 0';
-          header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+          header.style.boxShadow = '0 2px 16px rgba(40, 57, 26, 0.06)';
           header.style.opacity = '1';
           header.style.transform = 'translateY(0)';
         }
       } else {
         // 다른 페이지에서는 항상 헤더 표시
         header.style.padding = '5px 0';
-        header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+        header.style.boxShadow = '0 2px 16px rgba(40, 57, 26, 0.06)';
         header.style.opacity = '1';
         header.style.transform = 'translateY(0)';
       }
@@ -136,13 +136,6 @@ const Header = () => {
     closeMenu();
   };
 
-  const handleCIClick = (e) => {
-    e.preventDefault();
-    router.push('/ci');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    closeMenu();
-  };
-
   return (
     <header>
       <div className="container header-container">
@@ -166,9 +159,6 @@ const Header = () => {
           </li>
           <li className="nav-item">
             <a href="/solution" className={`nav-link ${location.pathname === '/solution' ? 'active' : ''}`} onClick={handleSolutionClick}>Solution</a>
-          </li>
-          <li className="nav-item">
-            <a href="/ci" className={`nav-link ${location.pathname === '/ci' ? 'active' : ''}`} onClick={handleCIClick}>CI</a>
           </li>
           <li className="nav-item">
             <a href="#contact" className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`} onClick={(e) => handleSectionClick(e, 'contact')}>Contact</a>

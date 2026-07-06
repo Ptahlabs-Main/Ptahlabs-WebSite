@@ -42,19 +42,19 @@
 
 /* 솔루션 카드 - 이미지 + 텍스트 카드 형식 */
 .solution-card {
-  background: var(--light-color);
-  border-radius: 16px;
+  background: #ffffff;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 2px 12px rgba(44, 44, 44, 0.05);
   transition: var(--transition);
   cursor: pointer;
-  border: 1px solid var(--secondary-color);
+  border: 1px solid rgba(40, 57, 26, 0.08);
 }
 
 .solution-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-hover);
-  border-color: var(--primary-color);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(44, 44, 44, 0.12);
+  border-color: rgba(40, 57, 26, 0.18);
 }
 
 .solution-card-image {

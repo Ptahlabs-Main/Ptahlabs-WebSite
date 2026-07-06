@@ -19,7 +19,7 @@ export default function ProjectPage({ projectData }) {
   return (
     <>
       <Head>
-        <title>{title} - PTAHLABS</title>
+        <title>{`${title} - PTAHLABS`}</title>
         <meta name="description" content={projectData?.description || `${title} 프로젝트 상세 정보`} />
         <meta property="og:title" content={`${title} - PTAHLABS`} />
         <meta property="og:description" content={projectData?.description || ''} />

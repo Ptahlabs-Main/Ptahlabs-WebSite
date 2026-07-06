@@ -9,12 +9,13 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 24px;
+  padding: 10px 22px;
   background: transparent;
-  border: 2px solid var(--accent-color);
-  border-radius: 50px;
+  border: 1px solid rgba(40, 57, 26, 0.2);
+  border-radius: 100px;
   color: var(--primary-color);
   font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: var(--transition);
 }
@@ -40,10 +41,11 @@
 }
 
 .project-detail-title {
-  font-size: 2.7rem;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
   margin-bottom: 0;
   color: var(--primary-color);
   font-weight: 800;
+  letter-spacing: -0.03em;
   text-align: left;
 }
 
@@ -57,8 +59,8 @@
   padding: 20px 0;
   background: transparent;
   border-radius: 0;
-  border-top: 2px solid var(--accent-color);
-  border-bottom: 2px solid var(--accent-color);
+  border-top: 1px solid rgba(40, 57, 26, 0.12);
+  border-bottom: 1px solid rgba(40, 57, 26, 0.12);
 }
 
 .project-thumbnail {
@@ -81,7 +83,7 @@
   font-size: 1rem;
   color: var(--text-color);
   padding: 0 25px;
-  border-right: 2px solid var(--accent-color);
+  border-right: 1px solid rgba(40, 57, 26, 0.15);
 }
 
 .project-meta-item:last-of-type {
@@ -111,25 +113,24 @@
 }
 
 .project-detail-tag {
-  padding: 8px 16px;
-  background: var(--primary-color);
-  color: var(--light-color);
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  padding: 6px 14px;
+  background: rgba(122, 132, 92, 0.12);
+  color: #4a5a35;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
 .project-detail-description {
-  margin-bottom: 50px;
-  padding: 40px;
-  background: linear-gradient(135deg, var(--light-color) 0%, rgba(194, 184, 163, 0.15) 100%);
-  border-radius: 15px;
-  border: 1px solid var(--accent-color);
+  margin-bottom: 70px;
+  padding: 0;
+  background: transparent;
+  max-width: 760px;
 }
 
 .project-detail-description p {
-  font-size: 1.2rem;
-  line-height: 1.8;
+  font-size: 1.1rem;
+  line-height: 1.9;
   color: var(--text-color);
   margin-bottom: 20px;
 }
@@ -260,34 +261,30 @@
 }
 
 .project-exhibits h3 {
-  font-size: 1.8rem;
-  color: var(--primary-color);
-  margin-bottom: 30px;
+  font-size: 0.95rem;
+  color: var(--accent-color);
+  margin-bottom: 28px;
   font-weight: 700;
+  letter-spacing: 0.1em;
   text-align: left;
 }
 
 .exhibits-grid {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 72px;
 }
 
 .exhibit-card {
   display: flex;
-  gap: 40px;
-  align-items: stretch;
-  background: linear-gradient(135deg, var(--light-color) 0%, rgba(194, 184, 163, 0.1) 100%);
-  border: 1px solid var(--accent-color);
-  border-radius: 15px;
+  gap: 48px;
+  align-items: flex-start;
+  background: transparent;
+  border: none;
+  border-radius: 0;
   transition: var(--transition);
-  box-shadow: var(--shadow-soft);
-  padding: 30px;
-}
-
-.exhibit-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-hover);
+  box-shadow: none;
+  padding: 0;
 }
 
 .exhibit-image-wrapper {
@@ -300,7 +297,7 @@
   max-height: 500px;
   overflow: hidden;
   position: relative;
-  border-radius: 10px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -367,10 +364,11 @@
 }
 
 .exhibit-content h4 {
-  font-size: 1.3rem;
+  font-size: 1.45rem;
   color: var(--primary-color);
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .exhibit-content p {
@@ -388,11 +386,11 @@
 }
 
 .exhibit-tag {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   padding: 5px 12px;
-  background: var(--accent-color);
-  color: var(--light-color);
-  border-radius: 15px;
+  background: rgba(122, 132, 92, 0.12);
+  color: #4a5a35;
+  border-radius: 8px;
   font-weight: 500;
 }
 
@@ -418,22 +416,21 @@
 }
 
 .exhibit-solution-btn {
-  margin-top: auto;
-  width: 100%;
-  display: flex;
+  margin-top: 20px;
+  align-self: flex-start;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  text-transform: none;
+  padding: 11px 24px;
+  font-size: 0.9rem;
   background: var(--primary-color);
   color: var(--light-color);
   border-color: var(--primary-color);
 }
 
 .exhibit-solution-btn:hover {
-  background: var(--accent-color);
-  border-color: var(--accent-color);
+  background: #35491f;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(40, 57, 26, 0.3);
+  box-shadow: 0 8px 24px rgba(40, 57, 26, 0.25);
 }
 
 /* 섹션 기반 포맷 시스템 */
@@ -442,27 +439,28 @@
 }
 
 .section {
-  margin-bottom: 60px;
-  padding: 40px;
-  background: linear-gradient(135deg, var(--light-color) 0%, rgba(194, 184, 163, 0.15) 100%);
-  border-radius: 15px;
-  border: 1px solid var(--accent-color);
+  margin-bottom: 70px;
+  padding: 48px 0 0 0;
+  background: transparent;
+  border-top: 1px solid rgba(40, 57, 26, 0.12);
 }
 
 .section h3 {
-  font-size: 1.8rem;
-  color: var(--primary-color);
-  margin-bottom: 30px;
+  font-size: 0.95rem;
+  color: var(--accent-color);
+  margin-bottom: 28px;
   font-weight: 700;
+  letter-spacing: 0.1em;
   text-align: left;
 }
 
 /* Text Section */
 .section-text p {
-  font-size: 1.2rem;
-  line-height: 1.8;
+  font-size: 1.1rem;
+  line-height: 1.9;
   color: var(--text-color);
   white-space: pre-line;
+  max-width: 760px;
 }
 
 /* Image Gallery */
@@ -558,13 +556,13 @@
 .section-sequence .sequence-item {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  gap: 48px;
   align-items: center;
-  margin-bottom: 40px;
-  padding: 30px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 64px;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .section-sequence .sequence-item:last-child {
@@ -588,12 +586,6 @@
 }
 
 /* Exhibits Section */
-.section-exhibits {
-  background: none !important;
-  border: none !important;
-  padding: 0 !important;
-}
-
 .section-exhibits h3 {
   text-align: left;
 }
@@ -602,7 +594,7 @@
 .related-projects {
   margin-top: 60px;
   padding-top: 40px;
-  border-top: 2px solid var(--secondary-color);
+  border-top: 1px solid rgba(40, 57, 26, 0.12);
 }
 
 .related-projects h3 {
@@ -623,9 +615,9 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  background: linear-gradient(135deg, var(--light-color) 0%, rgba(194, 184, 163, 0.1) 100%);
-  border: 2px solid var(--accent-color);
-  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(40, 57, 26, 0.08);
+  border-radius: 16px;
   padding: 0;
   cursor: pointer;
   transition: var(--transition);
@@ -634,9 +626,9 @@
 }
 
 .related-project-btn:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-  border-color: var(--primary-color);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(44, 44, 44, 0.1);
+  border-color: rgba(40, 57, 26, 0.18);
 }
 
 .related-project-image {

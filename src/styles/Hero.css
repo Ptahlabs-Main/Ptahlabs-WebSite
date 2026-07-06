@@ -1,9 +1,10 @@
-/* 배너 섹션 */
+/* 배너 섹션 - 설계도 스타일 (로고 라인 문양 + 와이드 트래킹 타이포) */
 .hero {
   height: 100vh;
-  background: linear-gradient(180deg, #e6eaf5 0%, #f6f6f6 70%, var(--light-color) 100%);
+  background: #f7f5ee;
   display: flex;
   align-items: center;
+  justify-content: center;
   color: var(--primary-color);
   text-align: center;
   padding-top: 80px;
@@ -13,6 +14,7 @@
   scroll-snap-align: start;
 }
 
+/* 스크롤 시 라이트 섹션으로 블렌딩 */
 .hero::after {
   content: '';
   position: absolute;
@@ -27,68 +29,93 @@
   transition: opacity 0.3s ease-out;
 }
 
-.hero-bauble-bg {
+/* 로고 라인 문양 배경 (벡터) */
+.hero-motif {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(76vw, 600px);
+  height: auto;
+  aspect-ratio: 506 / 504;
+  color: var(--primary-color);
+  opacity: 0.16;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 확대해도 선 굵기 1px 유지 */
+.hero-motif path {
+  vector-effect: non-scaling-stroke;
+}
+
+/* 좌우 헤어라인 장식 */
+.hero-side-line {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 220px;
+  background: rgba(40, 57, 26, 0.25);
+  z-index: 5;
+}
+
+.hero-side-line-left { left: 44px; }
+.hero-side-line-right { right: 44px; }
+
+@media (max-width: 768px) {
+  .hero-side-line { display: none; }
 }
 
 .hero-content {
-  max-width: 900px;
-  margin: 0 auto;
   position: relative;
-  z-index: 10;
-  pointer-events: auto;
-}
-
-.hero-content * {
-  pointer-events: auto;
+  z-index: 5;
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
-  margin-bottom: 1.5rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  line-height: 1.1;
-  color: var(--primary-color);
-  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.3);
-  text-stroke: 2px rgba(255, 255, 255, 0.3);
-  paint-order: stroke fill;
+  font-size: clamp(2.2rem, 7.5vw, 5.2rem);
+  margin-bottom: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  margin-right: -0.4em;
+  line-height: 1.2;
+  color: #3c4930;
 }
 
 .hero-subtitle {
-  font-size: clamp(1rem, 3vw, 1.5rem);
-  margin-bottom: 3rem;
+  font-size: 0.95rem;
   font-weight: 400;
-  line-height: 1.6;
-  color: var(--primary-color);
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
-  text-stroke: 1px rgba(255, 255, 255, 0.25);
-  paint-order: stroke fill;
+  letter-spacing: 0.06em;
+  line-height: 1.7;
+  color: #8a8a80;
 }
 
-.hero-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+/* 히어로 콘텐츠 등장 애니메이션 */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-title,
+  .hero-subtitle {
+    animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .hero-subtitle { animation-delay: 0.15s; }
+
+  .hero-motif {
+    animation: motif-fade 1.6s ease-out both;
+  }
 }
 
-.btn-secondary {
-  background: rgba(194, 184, 163, 0.2);
-  border: 1px solid rgba(194, 184, 163, 0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: var(--accent-color);
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
-.btn-secondary:hover {
-  background: rgba(194, 184, 163, 0.4);
-  color: var(--primary-color);
-  border-color: rgba(194, 184, 163, 0.6);
+@keyframes motif-fade {
+  from { opacity: 0; }
+  to { opacity: 0.16; }
 }

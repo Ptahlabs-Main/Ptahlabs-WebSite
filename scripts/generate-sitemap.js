@@ -22,6 +22,8 @@ const loadProjects = () => {
     const dataFile = path.join(PORTFOLIO_DIR, id, 'data.json');
     if (fs.existsSync(dataFile)) {
       const data = JSON.parse(fs.readFileSync(dataFile, 'utf-8'));
+      // 숨김 프로젝트는 검색 엔진에 노출하지 않음
+      if (data.hidden === true) return;
       projects.push(data);
     }
   });
@@ -48,12 +50,7 @@ const generateSitemap = () => {
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-  <url>
-    <loc>${baseUrl}/ci/</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>\n`;
+`;
 
   // 프로젝트 페이지들 추가
   projects.forEach(project => {
