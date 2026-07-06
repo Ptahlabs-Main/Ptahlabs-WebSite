@@ -31,25 +31,24 @@ npm start        # 빌드 결과 로컬 미리보기
 npm run deploy   # 로컬 빌드 후 gh-pages 브랜치로 푸시 (dev 서버 끄고 실행)
 ```
 
-- GitHub Actions는 사용하지 않음 (요금 문제로 제거, 2026-07)
-- **최초 1회 설정 필요**: GitHub → Settings → Pages → Source를
-  "Deploy from a branch"로 바꾸고 브랜치를 `gh-pages` / `/ (root)`로 지정
-- 커스텀 도메인(ptahlabs.co.kr)은 `public/CNAME`으로 배포에 자동 포함
-- `main` 푸시는 소스 백업일 뿐, 배포는 `npm run deploy`를 실행해야 반영됨
+- `npm run deploy`가 gh-pages 브랜치로 푸시하면, GitHub 내장 Pages 빌드(Actions)가 자동으로 굽는다. Public 레포라 무료.
+- **최초 1회 설정**: Settings → Pages → Source `Deploy from a branch` / `gh-pages` / `(root)`, Settings → Actions → General에서 Actions 허용
+- 커스텀 도메인(ptahlabs.co.kr)은 `public/CNAME`으로 자동 포함
+- `main` 푸시는 소스 백업일 뿐, 배포는 `npm run deploy` 실행 시 반영됨
 
 ## TODO
 
-- [ ] Hero 디자인 확정 (제작된 시안 중 선택 후 적용)
-- [ ] 부산 민주공원: `Main.jpg`, `Drawing.jpg`를 data.json의 `thumbnail`/`images`에 연결
+- [ ] 경주 문무대왕(`2025_Gyeongju_Munmu`): 전시물 4개 이미지 임시로 비워둠 → 실제 이미지 확보 시 추가 (대표 이미지는 정상)
 - [ ] 신규 프로젝트 3개 내용 채우고 `hidden: false`로 변경
   - 동부권역 학생안전교육원 (`2026_Dongbu_StudentSafety`)
   - 전주 수소 놀이 체험관 (`2026_Jeonju_Hydrogen`)
   - 울산 미래교육관 (`2026_Ulsan_FutureEducation`)
+- [ ] 공개 중이나 이미지 없는 솔루션에 썸네일/이미지 추가 (현재 텍스트만 표시)
+  - AI 활용 솔루션 (`Solution_AI`)
+  - 정보 키오스크 솔루션 (`Solution_InfoKiosk`)
+- [ ] 휴식정원 (`2025_MindGarden`, 숨김): 이미지 추가 후 공개 여부 결정
+- [ ] 웹사이트 제작 솔루션 (`Solution_Website`, 숨김): 없는 썸네일 `website_temp.jpg` 참조 → 이미지 채우고 공개 여부 결정
 - [ ] AI 활용 솔루션 문구 검토 (`Solution_AI/data.json`)
-- [ ] 저장소를 프타랩스 메인 오거나이제이션으로 이전
-  1. GitHub → 저장소 Settings → 맨 아래 Danger Zone → **Transfer ownership** → 대상 오거나이제이션 입력
-  2. 이전 후 로컬 리모트 변경: `git remote set-url origin https://github.com/<새오거나이제이션>/Ptahlabs-WebSite.git`
-  3. 새 저장소에서 Settings → Pages (Source: gh-pages 브랜치)와 커스텀 도메인(ptahlabs.co.kr) 재설정 확인
 - [ ] ERP 배포 및 웹사이트 연결
   - 현재 미배포 상태. `erp.ptahlabs.co.kr` 서브도메인으로 올릴 예정
   - 서버 필요 여부 확인 중 (정적 앱이면 GitHub Pages로 무료 호스팅 가능, 백엔드/DB 필요 시 별도 서버 필요)
