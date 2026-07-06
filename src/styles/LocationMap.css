@@ -1,0 +1,194 @@
+/* 설치 실적 지도 섹션 */
+.location-map {
+  padding: 120px 0;
+  background: var(--light-color);
+  scroll-snap-align: start;
+}
+
+.location-map .section-title {
+  text-align: left;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  margin-bottom: 0.6rem;
+}
+
+.location-map-sub {
+  color: #8a8a80;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 3.5rem;
+}
+
+.location-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 4fr);
+  gap: 60px;
+  align-items: center;
+}
+
+/* 라인아트 지도 */
+.location-map-svg {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  justify-self: center;
+}
+
+/* 시·도 폴리곤 (조각별로 살짝 축소되어 경계가 분리돼 보임) */
+.map-region {
+  fill: transparent;
+  stroke: rgba(40, 57, 26, 0.3);
+  stroke-width: 1;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  transition: fill 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    stroke 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.map-region.has-projects {
+  cursor: pointer;
+  fill: rgba(122, 132, 92, 0.05);
+}
+
+.map-region.active {
+  fill: rgba(122, 132, 92, 0.16);
+  stroke: rgba(40, 57, 26, 0.55);
+}
+
+/* 마커 */
+.map-marker {
+  cursor: pointer;
+}
+
+.marker-dot {
+  fill: var(--accent-color);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: var(--transition);
+}
+
+.map-marker.active .marker-dot {
+  fill: var(--primary-color);
+  transform: scale(1.4);
+}
+
+.marker-halo {
+  fill: none;
+  stroke: var(--accent-color);
+  stroke-width: 1;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.map-marker.active .marker-halo {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .map-marker.active .marker-halo {
+    animation: marker-pulse 1.6s ease-out infinite;
+  }
+}
+
+@keyframes marker-pulse {
+  from {
+    transform: scale(0.5);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+.marker-label {
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--text-color);
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+
+/* 지역 리스트 */
+.location-list {
+  list-style: none;
+}
+
+.location-list > li {
+  padding: 20px 8px;
+  border-bottom: 1px solid rgba(40, 57, 26, 0.12);
+  transition: var(--transition);
+}
+
+.location-list > li:first-child {
+  border-top: 1px solid rgba(40, 57, 26, 0.12);
+}
+
+.location-list > li.active {
+  background: rgba(122, 132, 92, 0.07);
+}
+
+/* 다른 지역 호버 시 나머지 항목은 흐리게 */
+.location-list > li.dimmed {
+  opacity: 0.3;
+}
+
+.location-city {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.location-city-name {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  letter-spacing: -0.01em;
+}
+
+.location-city-count {
+  font-size: 0.78rem;
+  color: #8a8a80;
+}
+
+.location-projects {
+  list-style: none;
+}
+
+.location-projects li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 4px 0;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  transition: var(--transition);
+}
+
+.location-projects li:hover {
+  color: var(--accent-color);
+}
+
+.location-project-year {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  color: #8a8a80;
+}
+
+@media (max-width: 768px) {
+  .location-map {
+    padding: 80px 0;
+  }
+
+  .location-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .location-map-svg {
+    max-width: 300px;
+  }
+}

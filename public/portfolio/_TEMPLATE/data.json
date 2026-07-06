@@ -8,6 +8,8 @@
   "year": "2025",
   "client": "클라이언트명",
   "location": "도, 도시",
+  "_latlng": [37.5, 127.0],
+  "_latlng_comment": "(선택) 메인 '설치 실적' 지도의 마커 위치. 사용하려면 키 이름을 latlng로 바꾸세요. 값은 구글지도 URL의 !3d(위도) !4d(경도) 숫자. 생략 시 location의 도시 중심에 표시",
   "country": "KR",
   "lastmod": "2025-10-01",
 
