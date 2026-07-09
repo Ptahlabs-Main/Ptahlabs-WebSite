@@ -65,6 +65,10 @@ portfolio/
 - `images`와 `thumbnail`은 파일명만 입력 (경로 제외)
 - 이미지 파일은 같은 폴더에 함께 저장
 
+**썸네일 보이는 영역 조절 (선택):**
+- `"thumbnailPosition": "25% center"` — 카드에서 이미지의 어느 부분을 보여줄지. 파노라마처럼 옆으로 긴 이미지에 사용 (`"left center"`, `"25% center"`, `"right center"` 등)
+- `"thumbnailZoom": 1.18` — 이미지를 확대해서 가장자리 여백을 잘라냄 (1.1~1.3 권장)
+
 ---
 
 ## 설치 실적 지도에 위치 표시 (선택)

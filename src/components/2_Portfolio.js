@@ -42,8 +42,8 @@ const Portfolio = () => {
 
         const projects = await Promise.all(projectPromises);
 
-        // hidden: true인 프로젝트 제외
-        const visibleProjects = projects.filter(project => !project.hidden);
+        // hidden: true 또는 솔루션(isSolution: true) 프로젝트 제외
+        const visibleProjects = projects.filter(project => !project.hidden && !project.isSolution);
 
         // 연도 내림차순 정렬
         visibleProjects.sort((a, b) => {
@@ -130,6 +130,14 @@ const Portfolio = () => {
     return videoExtensions.some(ext => filename.toLowerCase().endsWith(ext));
   };
 
+  // data.json의 thumbnailPosition(보이는 위치) / thumbnailZoom(확대 배율) 반영
+  const getThumbnailStyle = (item) => {
+    const style = {};
+    if (item.thumbnailPosition) style.objectPosition = item.thumbnailPosition;
+    if (item.thumbnailZoom) style.scale = String(item.thumbnailZoom);
+    return Object.keys(style).length > 0 ? style : undefined;
+  };
+
   const filteredItems = activeFilter === 'all'
     ? projectsData
     : projectsData.filter(project => project.tags?.includes(activeFilter));
@@ -203,13 +211,14 @@ const Portfolio = () => {
                   isVideo(item.thumbnail) ? (
                     <video
                       src={item.thumbnail}
+                      style={getThumbnailStyle(item)}
                       muted
                       loop
                       playsInline
                       autoPlay
                     />
                   ) : (
-                    <img src={item.thumbnail} alt={item.title} />
+                    <img src={item.thumbnail} alt={item.title} style={getThumbnailStyle(item)} />
                   )
                 ) : (
                   <div className="portfolio-card-placeholder">
