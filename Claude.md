@@ -4,7 +4,7 @@
 
 - **스택**: Next.js 15 (Static Export) · React 19 · 순수 CSS · GitHub Pages
 - **저장소**: `Ptahlabs-Main/Ptahlabs-WebSite` · **도메인**: ptahlabs.co.kr
-- **최종 업데이트**: 2026-07-06 (Hero 세로 라벨 배치, 배포 Actions 재활성화)
+- **최종 업데이트**: 2026-09-02 (홈 히어로 전면 개편, Portfolio/Locations/Contact 페이지 분리)
 
 > 프로젝트 추가·배포·할 일(TODO)은 [README.md](./README.md), SEO는 [SEO_가이드.md](./SEO_가이드.md) 참고.
 
@@ -14,8 +14,11 @@
 
 ```
 pages/                  # Next.js 페이지 (SSG)
-  index.js              # 메인
-  solution.js           # 솔루션
+  index.js              # 메인 (풀스크린 히어로 전용)
+  portfolio.js          # 포트폴리오 그리드
+  locations.js          # 설치 실적 지도
+  contact.js            # 연락처
+  solution.js           # 솔루션 (메뉴 임시 숨김, URL 접근 가능)
   history.js            # 연혁 (메뉴 미노출, noindex)
   project/[projectId].js# 프로젝트 상세 (동적)
 public/
@@ -43,7 +46,7 @@ next.config.js          # static export 설정
 
 ## 주요 기능
 
-- **Hero**: 크림 배경(#f7f5ee) + 로고 라인 문양(`LogoLineMotif.js`, 선 굵기 1px 고정) + 와이드 트래킹 타이포 `PTAHLABS`. 좌우 헤어라인에 세로 라벨(MEDIA ART / DIGITAL EXHIBITION), 모바일에선 상하로 엇갈려 배치. 정적 컴포넌트(무거운 JS 없음).
+- **Hero (홈 전용 풀스크린)**: 대표 프로젝트 이미지 캐러셀(`HERO_SLIDES` 배열에 `{id, title, image}` 추가) + 다크 스크림. 자동 넘김 없이 휠/스와이프로만 전환, 우측 세로 라벨 아래 세로 도트 인디케이터. 좌상단에 젖빛 유리 로고 마크(로고 다각형 clip-path + backdrop blur) + 텍스트. 하단 버튼은 현재 슬라이드 프로젝트 상세로 이동. 헤더는 평소 숨김 → 휠·상단 마우스 이동 시 흰색 메뉴로 3초간 표시(`header-overlay`).
 - **동적 포트폴리오**: 각 프로젝트 `data.json`을 런타임 fetch. 폴더만 추가하면 인식. 태그 필터, 카드 UI, 이미지/비디오 썸네일, 썸네일 없으면 제목 플레이스홀더.
 - **섹션 콘텐츠 시스템**: `text` / `image-gallery` / `text-image` / `text-image-sequence` / `exhibits` 5종. `SectionRenderer`로 렌더링, JSON으로 관리.
 - **솔루션↔전시 양방향 연결**: `relatedSolution`으로 상호 참조.
@@ -114,6 +117,7 @@ npm run deploy   # 인덱스·sitemap 생성 → 빌드 → gh-pages 브랜치 �
 
 ## 변경 이력 (요약)
 
+- **2026-09**: 홈을 풀스크린 히어로 전용으로 개편(젖빛 유리 로고, 휠 전환 캐러셀, 숨김형 흰색 오버레이 헤더). Portfolio/Locations/Contact를 별도 페이지로 분리하고 헤더 내비를 페이지 라우팅으로 전환, 솔루션 메뉴 임시 숨김. 상세 페이지 제목 ` / ` 기준 부제목 분리. 설치 실적 지도 권역별 접이식 리스트. 소금산 콘텐츠 갱신(워터 이펙트), 신규 프로젝트 위치 등록(전주·양산·울산·밀양), 썸네일 조절 옵션(`thumbnailPosition`/`thumbnailZoom`) 추가.
 - **2026-07**: Hero 최종 디자인 — 크림 배경 + 로고 라인 문양(`LogoLineMotif.js`) + 와이드 트래킹 타이포 + 좌우 세로 라벨(모바일 상하 엇갈림). 서브문구·모서리 로고/이메일 제거, 첫 화면 베이지 꽉 채움. 저장소를 `Ptahlabs-Main`으로 이전, 배포를 gh-pages + 내장 Pages 빌드(Actions)로 정상화. three.js 계열·CI 페이지 제거. 프로젝트 상세 에디토리얼 스타일, 포트폴리오 미니멀 그리드.
 - **2025-12**: 휴식정원 프로젝트, 섹션 텍스트/제목 줄바꿈. package.json 정리(약 1000→139), 연혁 페이지, 정보 키오스크 솔루션, 부산 민주공원 콘텐츠, 카드 UI 개편, 비디오 썸네일.
 - **2025-10**: Next.js 마이그레이션(SPA→SSG), CSS 모듈화, `SectionRenderer` 분리, 태그 중앙관리(`tags.json`), 런타임 동적 로드, 솔루션 페이지 분리, 비개발자용 폴더 구조.

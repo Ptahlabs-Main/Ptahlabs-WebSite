@@ -39,11 +39,14 @@ npm run deploy   # 로컬 빌드 후 gh-pages 브랜치로 푸시 (dev 서버 �
 ## TODO
 
 - [ ] 그래피직스(`2025_Graphixis`, 공개·서울): 스켈레톤 상태 → 제목·태그·설명·이미지 채우기 (현재 텍스트 플레이스홀더로 노출 중)
-- [ ] 경주 문무대왕(`2025_Gyeongju_Munmu`): 전시물 4개 이미지 임시로 비워둠 → 실제 이미지 확보 시 추가 (대표 이미지는 정상)
-- [ ] 신규 프로젝트 3개 내용 채우고 `hidden: false`로 변경
-  - 동부권역 학생안전교육원 (`2026_Dongbu_StudentSafety`)
+- [ ] 경주 문무대왕(`2025_Gyeongju_Munmu`): 만파식적 리듬게임 이미지만 남음. 폴더의 원본 4장(`20251023_*.jpeg` 등, 약 12MB)은 사이트 미사용 → 자르기 확정 후 정리
+- [ ] 소금산(`2025_Wonju_Sogeumsan`): 미사용 백업 `_원본_Forest_Main.jpg` 정리, `Forest_Main.png`(2.7MB) 웹용 압축 검토
+- [ ] 신규 프로젝트 4개 내용 채우고 `hidden: false`로 변경 (위치·좌표는 등록 완료)
+  - 경남 동부권 학생안전체험교육원 (`2026_Dongbu_StudentSafety`, 양산)
   - 전주 수소 놀이 체험관 (`2026_Jeonju_Hydrogen`)
   - 울산 미래교육관 (`2026_Ulsan_FutureEducation`)
+  - 경남 특수교육원 안전생활체험관 (`2026_Miryang_SafetyLife`, 밀양)
+- [ ] 솔루션 메뉴 임시 숨김 상태 → 공개 시점에 `Header.js` 주석 해제
 - [ ] 공개 중이나 이미지 없는 솔루션에 썸네일/이미지 추가 (현재 텍스트만 표시)
   - AI 활용 솔루션 (`Solution_AI`)
   - 정보 키오스크 솔루션 (`Solution_InfoKiosk`)
