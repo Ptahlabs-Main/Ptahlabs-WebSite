@@ -125,7 +125,14 @@ const ProjectDetail = () => {
       <div className="container">
         <div className="project-detail-content">
           <div className="project-header">
-            <h1 className="project-detail-title">{project.title}</h1>
+            <h1 className="project-detail-title">
+              {project.title.split(' / ')[0]}
+              {project.title.includes(' / ') && (
+                <span className="project-detail-subtitle">
+                  {project.title.split(' / ').slice(1).join(' / ')}
+                </span>
+              )}
+            </h1>
             <button className="btn-back" onClick={() => router.push('/')}>
               ← 포트폴리오로 돌아가기
             </button>

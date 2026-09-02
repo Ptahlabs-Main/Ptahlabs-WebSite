@@ -1,10 +1,6 @@
 import Head from 'next/head'
 import Header from '../src/components/layouts/Header'
 import Hero from '../src/components/1_Hero'
-import Portfolio from '../src/components/2_Portfolio'
-import LocationMap from '../src/components/4_LocationMap'
-import Contact from '../src/components/5_Contact'
-import Footer from '../src/components/layouts/Footer'
 
 export default function Home() {
   return (
@@ -33,10 +29,6 @@ export default function Home() {
       <div className="App">
         <Header />
         <Hero />
-        <Portfolio />
-        <LocationMap />
-        <Contact />
-        <Footer />
       </div>
     </>
   )

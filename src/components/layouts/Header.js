@@ -24,34 +24,9 @@ const Header = () => {
       setActiveSection(current);
 
       const header = document.querySelector('header');
-      const scrollY = window.scrollY;
-      const fadeStart = 100;
-      const fadeEnd = 300;
 
-      // 헤더 페이드 인/아웃 (메인 페이지에서만)
-      if (location.pathname === '/') {
-        if (scrollY < fadeStart) {
-          // Hero 영역: 헤더 숨김
-          header.style.padding = '';
-          header.style.boxShadow = '';
-          header.style.opacity = '0';
-          header.style.transform = 'translateY(-20px)';
-        } else if (scrollY >= fadeStart && scrollY <= fadeEnd) {
-          // 전환 구간: 점진적으로 나타남
-          const progress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
-          header.style.padding = '5px 0';
-          header.style.boxShadow = `0 2px 16px rgba(40, 57, 26, ${0.06 * progress})`;
-          header.style.opacity = progress.toString();
-          header.style.transform = `translateY(${-20 * (1 - progress)}px)`;
-        } else {
-          // 완전히 표시
-          header.style.padding = '5px 0';
-          header.style.boxShadow = '0 2px 16px rgba(40, 57, 26, 0.06)';
-          header.style.opacity = '1';
-          header.style.transform = 'translateY(0)';
-        }
-      } else {
-        // 다른 페이지에서는 항상 헤더 표시
+      // 메인(히어로 전용) 페이지는 아래의 전용 이펙트가 표시/숨김을 관리
+      if (location.pathname !== '/') {
         header.style.padding = '5px 0';
         header.style.boxShadow = '0 2px 16px rgba(40, 57, 26, 0.06)';
         header.style.opacity = '1';
@@ -90,6 +65,44 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]);
 
+  // 메인 페이지: 헤더는 평소 숨김, 휠·터치·상단 마우스 이동 시에만 잠시 표시
+  useEffect(() => {
+    if (location.pathname !== '/') return;
+    const header = document.querySelector('header');
+    if (!header) return;
+
+    let hideTimer = null;
+    const hide = () => {
+      header.style.opacity = '0';
+      header.style.transform = 'translateY(-16px)';
+      header.style.pointerEvents = 'none';
+    };
+    const show = () => {
+      header.style.opacity = '1';
+      header.style.transform = 'translateY(0)';
+      header.style.pointerEvents = '';
+      if (hideTimer) clearTimeout(hideTimer);
+      hideTimer = setTimeout(hide, 3000);
+    };
+    const onMouseMove = (e) => {
+      if (e.clientY < 90) show();
+    };
+
+    hide();
+    window.addEventListener('wheel', show, { passive: true });
+    window.addEventListener('touchstart', show, { passive: true });
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    return () => {
+      if (hideTimer) clearTimeout(hideTimer);
+      window.removeEventListener('wheel', show);
+      window.removeEventListener('touchstart', show);
+      window.removeEventListener('mousemove', onMouseMove);
+      header.style.opacity = '';
+      header.style.transform = '';
+      header.style.pointerEvents = '';
+    };
+  }, [location.pathname]);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -108,36 +121,15 @@ const Header = () => {
     closeMenu();
   };
 
-  const handleSectionClick = (e, sectionId) => {
+  const handlePageClick = (e, path) => {
     e.preventDefault();
-    if (location.pathname !== '/') {
-      // 다른 페이지에서 메인으로 이동 시
-      window.scrollTo({ top: 0 });
-      router.push('/');
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 300);
-    } else {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-    closeMenu();
-  };
-
-  const handleSolutionClick = (e) => {
-    e.preventDefault();
-    router.push('/solution');
+    router.push(path);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     closeMenu();
   };
 
   return (
-    <header>
+    <header className={location.pathname === '/' ? 'header-overlay' : ''}>
       <div className="container header-container">
         <a href="/" className="logo" onClick={handleHomeClick}>
           <img src="/images/logo/2x/SignColor@2x.png" alt="PTAH LABS" className="logo-image" />
@@ -152,16 +144,20 @@ const Header = () => {
 
         <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
           <li className="nav-item">
-            <a href="/" className={`nav-link ${location.pathname === '/' && activeSection === '' ? 'active' : ''}`} onClick={handleHomeClick}>Home</a>
+            <a href="/" className="nav-link" onClick={handleHomeClick}>Home</a>
           </li>
           <li className="nav-item">
-            <a href="#portfolio" className={`nav-link ${activeSection === 'portfolio' ? 'active' : ''}`} onClick={(e) => handleSectionClick(e, 'portfolio')}>Portfolio</a>
+            <a href="/portfolio" className={`nav-link ${location.pathname === '/portfolio' ? 'active' : ''}`} onClick={(e) => handlePageClick(e, '/portfolio')}>Portfolio</a>
+          </li>
+          {/* 솔루션 메뉴 임시 숨김 (페이지 /solution 은 유지) */}
+          {/* <li className="nav-item">
+            <a href="/solution" className={`nav-link ${location.pathname === '/solution' ? 'active' : ''}`} onClick={(e) => handlePageClick(e, '/solution')}>Solution</a>
+          </li> */}
+          <li className="nav-item">
+            <a href="/locations" className={`nav-link ${location.pathname === '/locations' ? 'active' : ''}`} onClick={(e) => handlePageClick(e, '/locations')}>Locations</a>
           </li>
           <li className="nav-item">
-            <a href="/solution" className={`nav-link ${location.pathname === '/solution' ? 'active' : ''}`} onClick={handleSolutionClick}>Solution</a>
-          </li>
-          <li className="nav-item">
-            <a href="#contact" className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`} onClick={(e) => handleSectionClick(e, 'contact')}>Contact</a>
+            <a href="/contact" className={`nav-link ${location.pathname === '/contact' ? 'active' : ''}`} onClick={(e) => handlePageClick(e, '/contact')}>Contact</a>
           </li>
         </ul>
       </div>

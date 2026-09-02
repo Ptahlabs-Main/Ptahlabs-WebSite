@@ -7,9 +7,10 @@
   "thumbnail": "",
   "description": "울산 미래교육관 체험형 전시 콘텐츠",
   "year": "2026",
-  "location": "울산",
+  "location": "울산, 북구",
+  "latlng": [35.6155094, 129.4467815],
   "country": "KR",
-  "lastmod": "2026-07-06",
+  "lastmod": "2026-09-02",
 
   "sections": [
     {

@@ -19,6 +19,33 @@ header {
   padding: 20px 20px;
 }
 
+/* 홈(히어로 전용) 투명 오버레이 헤더 */
+header.header-overlay {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
+/* 중앙 유리 로고가 브랜드 역할을 하므로 헤더 로고는 숨김 */
+.header-overlay .logo {
+  visibility: hidden;
+}
+
+.header-overlay .nav-link {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.header-overlay .nav-link:hover,
+.header-overlay .nav-link.active {
+  color: #ffffff;
+}
+
+.header-overlay .hamburger .bar {
+  background-color: #f7f5ee;
+}
+
 .logo {
   font-size: 1.8rem;
   font-weight: 900;

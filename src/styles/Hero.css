@@ -1,11 +1,11 @@
-/* 배너 섹션 - 설계도 스타일 (로고 라인 문양 + 와이드 트래킹 타이포) */
+/* 배너 섹션 - 대표 프로젝트 이미지 풀블리드 + 다크 스크림 + 라이트 타이포 */
 .hero {
   height: 100vh;
-  background: #f7f5ee;
+  background: #10150c;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--primary-color);
+  color: #f7f5ee;
   text-align: center;
   padding-top: 80px;
   position: relative;
@@ -29,25 +29,37 @@
   transition: opacity 0.3s ease-out;
 }
 
-/* 로고 라인 문양 배경 (벡터) */
-.hero-motif {
+/* 대표 프로젝트 이미지 슬라이드 배경 */
+.hero-bg {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(76vw, 600px);
-  height: auto;
-  aspect-ratio: 55.13 / 54.5;
-  color: var(--primary-color);
-  opacity: 0.16;
+  inset: 0;
+  z-index: 0;
   pointer-events: none;
-  user-select: none;
 }
 
-/* 확대해도 선 굵기 1px 유지 */
-.hero-motif polygon,
-.hero-motif path {
-  vector-effect: non-scaling-stroke;
+.hero-bg-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.hero-bg-slide.visible {
+  opacity: 1;
+}
+
+/* 다크 스크림 — 어떤 이미지가 와도 타이포 가독성 확보 (숫자로 농도 조절) */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(13, 17, 10, 0.55) 0%,
+    rgba(13, 17, 10, 0.38) 45%,
+    rgba(13, 17, 10, 0.6) 100%
+  );
 }
 
 /* 좌우 헤어라인 + 세로 라벨 (로고 양옆) */
@@ -68,7 +80,7 @@
 .hero-side-line {
   width: 1px;
   height: 120px;
-  background: rgba(40, 57, 26, 0.25);
+  background: rgba(247, 245, 238, 0.35);
 }
 
 .hero-side-label {
@@ -77,7 +89,7 @@
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.22em;
-  color: #8a8a80;
+  color: rgba(247, 245, 238, 0.65);
 }
 
 /* 좌측 라벨은 아래→위로 읽혀 중앙을 향하도록 */
@@ -126,36 +138,155 @@
   z-index: 5;
 }
 
-.hero-title {
-  font-size: clamp(2.4rem, 8vw, 6rem);
-  margin-bottom: 1.6rem;
-  font-weight: 800;
-  letter-spacing: 0.4em;
-  margin-right: -0.4em;
-  line-height: 1.2;
-  color: #3c4930;
+/* 좌상단 로고: 젖빛 유리 마크 + 옆에 텍스트 (헤더 로고와 같은 구성) */
+.hero-brand-row {
+  position: absolute;
+  top: 24px;
+  left: 40px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-.hero-subtitle {
-  font-size: 0.95rem;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  line-height: 1.7;
-  color: #8a8a80;
+.hero-brand-mark {
+  position: relative;
+  display: block;
+  width: 72px;
+  aspect-ratio: 55.13 / 54.5;
+}
+
+@media (max-width: 768px) {
+  .hero-brand-row {
+    top: 16px;
+    left: 20px;
+    gap: 10px;
+  }
+
+  .hero-brand-mark {
+    width: 52px;
+  }
+}
+
+/* 로고 안쪽 면: 뒤 배경을 블러+크림 틴트로 눌러서 어떤 이미지가 와도 일정한 대비 확보 */
+.hero-frost {
+  position: absolute;
+  inset: 0;
+  clip-path: url(#hero-logo-clip);
+  background: rgba(247, 245, 238, 0.26);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+/* 로고 아웃라인 */
+.hero-motif-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: rgba(247, 245, 238, 0.85);
+  pointer-events: none;
+}
+
+.hero-motif-lines polygon,
+.hero-motif-lines path {
+  vector-effect: non-scaling-stroke;
+}
+
+.hero-brand-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #f7f5ee;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* 하단 프로젝트 버튼 영역 */
+.hero-bottom {
+  position: absolute;
+  bottom: 92px;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  display: flex;
+  justify-content: center;
+}
+
+/* 아웃라인 버튼 (현재 슬라이드 프로젝트명) */
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 28px;
+  border: 1px solid rgba(247, 245, 238, 0.65);
+  color: #f7f5ee;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.hero-cta-arrow {
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.hero-cta:hover {
+  background: rgba(247, 245, 238, 0.92);
+  color: #28391a;
+  border-color: transparent;
+}
+
+.hero-cta:hover .hero-cta-arrow {
+  transform: translateX(4px);
+}
+
+/* 캐러셀 인디케이터 (우측 세로 라벨 아래, 세로 배치) */
+.hero-dots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .hero-dots {
+    flex-direction: row;
+    margin-top: 0;
+    margin-left: 8px;
+  }
+}
+
+.hero-dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(247, 245, 238, 0.8);
+  background: transparent;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.hero-dot.active {
+  background: #f7f5ee;
+  border-color: #f7f5ee;
+}
+
+.hero-dot:hover {
+  background: rgba(247, 245, 238, 0.5);
 }
 
 /* 히어로 콘텐츠 등장 애니메이션 */
 @media (prefers-reduced-motion: no-preference) {
-  .hero-title,
-  .hero-subtitle {
+  .hero-brand,
+  .hero-cta {
     animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  .hero-subtitle { animation-delay: 0.15s; }
-
-  .hero-motif {
-    animation: motif-fade 1.6s ease-out both;
-  }
+  .hero-cta { animation-delay: 0.15s; }
 }
 
 @keyframes hero-rise {
@@ -167,9 +298,4 @@
     opacity: 1;
     translate: 0 0;
   }
-}
-
-@keyframes motif-fade {
-  from { opacity: 0; }
-  to { opacity: 0.16; }
 }

@@ -37,3 +37,4 @@ const LogoLineMotif = ({ className, showFaces = false }) => {
 };
 
 export default LogoLineMotif;
+export { POLYGONS };

@@ -20,8 +20,10 @@ const CITY_COORDS = {
   '대전': { x: 168, y: 285 },
   '전주': { x: 145, y: 351 },
   '대구': { x: 290, y: 345 },
+  '밀양': { x: 305, y: 390 },
   '경주': { x: 352, y: 346, labelLeft: true },
   '울산': { x: 361, y: 386, labelLeft: true },
+  '양산': { x: 334, y: 411 },
   '부산': { x: 338, y: 430, labelLeft: true },
   '광주': { x: 115, y: 433 },
 };
@@ -29,13 +31,28 @@ const CITY_COORDS = {
 // 도시 → 시·도 매핑 (지역 폴리곤 호버 연동용)
 const REGION_OF_CITY = {
   '서울': '서울', '인천': '인천', '용인': '경기', '원주': '강원',
-  '제천': '충북', '대전': '대전', '전주': '전북', '대구': '대구',
-  '경주': '경북', '울산': '울산', '부산': '부산', '광주': '광주',
+  '제천': '충북', '대전': '대전', '전주': '전북', '대구': '대구', '밀양': '경남',
+  '경주': '경북', '울산': '울산', '양산': '경남', '부산': '부산', '광주': '광주',
 };
+
+// 시·도 → 권역 그룹 (리스트 접기 단위)
+const GROUP_OF_REGION = {
+  '서울': '수도권', '인천': '수도권', '경기': '수도권',
+  '강원': '강원',
+  '충북': '충청', '충남': '충청', '대전': '충청', '세종': '충청',
+  '전북': '전라', '전남': '전라', '광주': '전라',
+  '경북': '경북', '대구': '경북',
+  '경남': '경남', '부산': '경남', '울산': '경남',
+};
+
+const groupOfCity = (cityName) =>
+  GROUP_OF_REGION[REGION_OF_CITY[cityName]] || REGION_OF_CITY[cityName];
 
 const LocationMap = () => {
   const [cities, setCities] = useState([]);
   const [hovered, setHovered] = useState(null);
+  const [hoveredGroup, setHoveredGroup] = useState(null);
+  const [openGroups, setOpenGroups] = useState([]);
   const router = useRouter();
 
   // 런타임에 프로젝트 위치 데이터 로드
@@ -104,10 +121,37 @@ const LocationMap = () => {
 
   const totalProjects = cities.reduce((sum, c) => sum + c.projects.length, 0);
 
+  // 북 → 남 순의 도시 목록을 권역 단위로 묶기
+  const groups = [];
+  cities.forEach((city) => {
+    const gName = groupOfCity(city.name);
+    let g = groups.find((x) => x.name === gName);
+    if (!g) {
+      g = { name: gName, cities: [] };
+      groups.push(g);
+    }
+    g.cities.push(city);
+  });
+
+  // 지도에서 강조할 도시들 (도시 호버 우선, 없으면 권역 호버)
+  const activeCities = hovered
+    ? [hovered]
+    : hoveredGroup
+      ? cities.filter((c) => groupOfCity(c.name) === hoveredGroup).map((c) => c.name)
+      : [];
+
+  const toggleGroup = (name) => {
+    setOpenGroups((prev) =>
+      prev.includes(name) ? prev.filter((g) => g !== name) : [...prev, name]
+    );
+  };
+
   const handleMarkerClick = (city) => {
     if (city.projects.length === 1) {
       router.push(`/project/${city.projects[0].id}`);
     } else {
+      const gName = groupOfCity(city.name);
+      setOpenGroups((prev) => (prev.includes(gName) ? prev : [...prev, gName]));
       setHovered(city.name);
     }
   };
@@ -129,14 +173,14 @@ const LocationMap = () => {
             aria-label="프로젝트 설치 지역 지도"
           >
             {KOREA_REGIONS.map((region) => {
-              const hoveredRegion = hovered ? REGION_OF_CITY[hovered] : null;
+              const activeRegions = activeCities.map((c) => REGION_OF_CITY[c]);
               const cityInRegion = cities.find(
                 (c) => REGION_OF_CITY[c.name] === region.name
               );
               return (
                 <path
                   key={region.name}
-                  className={`map-region ${hoveredRegion === region.name ? 'active' : ''} ${cityInRegion ? 'has-projects' : ''}`}
+                  className={`map-region ${activeRegions.includes(region.name) ? 'active' : ''} ${cityInRegion ? 'has-projects' : ''}`}
                   d={region.d}
                   onMouseEnter={cityInRegion ? () => setHovered(cityInRegion.name) : undefined}
                   onMouseLeave={cityInRegion ? () => setHovered(null) : undefined}
@@ -147,7 +191,7 @@ const LocationMap = () => {
             {cities.map((city) => (
               <g
                 key={city.name}
-                className={`map-marker ${hovered === city.name ? 'active' : ''}`}
+                className={`map-marker ${activeCities.includes(city.name) ? 'active' : ''}`}
                 onMouseEnter={() => setHovered(city.name)}
                 onMouseLeave={() => setHovered(null)}
                 onClick={() => handleMarkerClick(city)}
@@ -170,35 +214,70 @@ const LocationMap = () => {
             ))}
           </svg>
 
-          {/* 지역별 프로젝트 리스트 */}
+          {/* 권역별 접이식 프로젝트 리스트 */}
           <ul className="location-list">
-            {cities.map((city) => (
-              <li
-                key={city.name}
-                className={
-                  hovered === city.name ? 'active' : hovered ? 'dimmed' : ''
-                }
-                onMouseEnter={() => setHovered(city.name)}
-                onMouseLeave={() => setHovered(null)}
-              >
-                <div className="location-city">
-                  <span className="location-city-name">{city.name}</span>
-                  <span className="location-city-count">
-                    {city.projects.length}개 프로젝트
-                  </span>
-                </div>
-                <ul className="location-projects">
-                  {city.projects.map((p) => (
-                    <li key={p.id} onClick={() => router.push(`/project/${p.id}`)}>
-                      <span className="location-project-title">
-                        {p.title.replace(' / ', ' ')}
-                      </span>
-                      <span className="location-project-year">{p.year}</span>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
+            {groups.map((g) => {
+              const total = g.cities.reduce((s, c) => s + c.projects.length, 0);
+              const isOpen = openGroups.includes(g.name);
+              const isActive =
+                hoveredGroup === g.name ||
+                g.cities.some((c) => c.name === hovered);
+              const isDimmed = !isActive && (hovered || hoveredGroup);
+              return (
+                <li
+                  key={g.name}
+                  className={`location-group ${isOpen ? 'open' : ''} ${isActive ? 'active' : isDimmed ? 'dimmed' : ''}`}
+                >
+                  <button
+                    type="button"
+                    className="location-group-header"
+                    aria-expanded={isOpen}
+                    onClick={() => toggleGroup(g.name)}
+                    onMouseEnter={() => setHoveredGroup(g.name)}
+                    onMouseLeave={() => setHoveredGroup(null)}
+                  >
+                    <span className="location-city-name">{g.name}</span>
+                    <span className="location-city-count">
+                      {g.cities.length > 1 ? `${g.cities.length}개 도시 · ` : ''}
+                      {total}개 프로젝트
+                    </span>
+                    <span className="location-group-chevron" aria-hidden="true" />
+                  </button>
+                  {isOpen && (
+                    <div className="location-group-body">
+                      {g.cities.map((city) => (
+                        <div
+                          key={city.name}
+                          className="location-city-block"
+                          onMouseEnter={() => setHovered(city.name)}
+                          onMouseLeave={() => setHovered(null)}
+                        >
+                          <div className="location-city">
+                            <span className="location-city-name">{city.name}</span>
+                            <span className="location-city-count">
+                              {city.projects.length}개 프로젝트
+                            </span>
+                          </div>
+                          <ul className="location-projects">
+                            {city.projects.map((p) => (
+                              <li
+                                key={p.id}
+                                onClick={() => router.push(`/project/${p.id}`)}
+                              >
+                                <span className="location-project-title">
+                                  {p.title.replace(' / ', ' ')}
+                                </span>
+                                <span className="location-project-year">{p.year}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

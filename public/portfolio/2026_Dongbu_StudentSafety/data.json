@@ -1,15 +1,16 @@
 {
   "id": "2026_Dongbu_StudentSafety",
-  "title": "동부권역 학생안전교육원",
+  "title": "경남 동부권 학생안전체험교육원",
   "hidden": true,
   "tags": ["exhibition", "education", "interactive"],
   "images": [],
   "thumbnail": "",
-  "description": "동부권역 학생안전교육원 체험형 전시 콘텐츠",
+  "description": "경남 동부권 학생안전체험교육원 체험형 전시 콘텐츠",
   "year": "2026",
-  "location": "",
+  "location": "경상남도, 양산",
+  "latlng": [35.3069235, 129.0224411],
   "country": "KR",
-  "lastmod": "2026-07-06",
+  "lastmod": "2026-09-02",
 
   "sections": [
     {

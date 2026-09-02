@@ -22,7 +22,7 @@
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 4fr);
   gap: 60px;
-  align-items: center;
+  align-items: start;
 }
 
 /* 라인아트 지도 */
@@ -131,6 +131,49 @@
 /* 다른 지역 호버 시 나머지 항목은 흐리게 */
 .location-list > li.dimmed {
   opacity: 0.3;
+}
+
+/* 권역 접이식 헤더 */
+.location-group-header {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+
+.location-group-chevron {
+  margin-left: auto;
+  align-self: center;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid var(--primary-color);
+  border-bottom: 1.5px solid var(--primary-color);
+  transform: rotate(45deg);
+  opacity: 0.5;
+  transition: var(--transition);
+}
+
+.location-group.open .location-group-chevron {
+  transform: rotate(225deg);
+}
+
+.location-group-body {
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.location-group-body .location-city-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--accent-color);
 }
 
 .location-city {
