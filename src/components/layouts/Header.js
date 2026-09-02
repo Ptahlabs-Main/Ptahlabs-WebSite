@@ -28,7 +28,6 @@ const Header = () => {
       // 메인(히어로 전용) 페이지는 아래의 전용 이펙트가 표시/숨김을 관리
       if (location.pathname !== '/') {
         header.style.padding = '5px 0';
-        header.style.boxShadow = '0 2px 16px rgba(40, 57, 26, 0.06)';
         header.style.opacity = '1';
         header.style.transform = 'translateY(0)';
       }
@@ -154,7 +153,7 @@ const Header = () => {
             <a href="/solution" className={`nav-link ${location.pathname === '/solution' ? 'active' : ''}`} onClick={(e) => handlePageClick(e, '/solution')}>Solution</a>
           </li> */}
           <li className="nav-item">
-            <a href="/locations" className={`nav-link ${location.pathname === '/locations' ? 'active' : ''}`} onClick={(e) => handlePageClick(e, '/locations')}>Locations</a>
+            <a href="/achievements" className={`nav-link ${location.pathname === '/achievements' ? 'active' : ''}`} onClick={(e) => handlePageClick(e, '/achievements')}>Achievements</a>
           </li>
           <li className="nav-item">
             <a href="/contact" className={`nav-link ${location.pathname === '/contact' ? 'active' : ''}`} onClick={(e) => handlePageClick(e, '/contact')}>Contact</a>

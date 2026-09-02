@@ -1,0 +1,64 @@
+/* 수상 실적 섹션 */
+.awards {
+  padding: 40px 0 140px;
+  background: var(--light-color);
+}
+
+.awards .section-title {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.awards-empty {
+  color: #8a8a80;
+  font-size: 0.95rem;
+}
+
+.awards-list {
+  list-style: none;
+}
+
+.award-item {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  padding: 18px 8px;
+  border-bottom: 1px solid rgba(40, 57, 26, 0.1);
+}
+
+.award-item:first-child {
+  border-top: 1px solid rgba(40, 57, 26, 0.1);
+}
+
+.award-year {
+  flex-shrink: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  min-width: 48px;
+}
+
+.award-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.award-org {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  color: #8a8a80;
+}
+
+@media (max-width: 768px) {
+  .award-item {
+    flex-wrap: wrap;
+    gap: 8px 16px;
+  }
+
+  .award-org {
+    margin-left: 64px;
+    width: 100%;
+  }
+}

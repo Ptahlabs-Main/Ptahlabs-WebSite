@@ -44,6 +44,14 @@ body {
 
 .App {
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 콘텐츠가 짧은 페이지에서도 푸터가 항상 바닥에 붙도록 */
+.App > .footer {
+  margin-top: auto;
 }
 
 a {
@@ -84,7 +92,7 @@ a {
 }
 
 .section-title {
-  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
   margin-bottom: 3rem;
   text-align: center;
   position: relative;

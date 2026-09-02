@@ -1,13 +1,12 @@
 /* 설치 실적 지도 섹션 */
 .location-map {
-  padding: 120px 0;
+  padding: 150px 0 120px;
   background: var(--light-color);
   scroll-snap-align: start;
 }
 
 .location-map .section-title {
   text-align: left;
-  font-size: clamp(2.2rem, 5vw, 4rem);
   margin-bottom: 0.6rem;
 }
 

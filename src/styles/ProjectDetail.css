@@ -41,7 +41,7 @@
 }
 
 .project-detail-title {
-  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-size: clamp(1.8rem, 3.4vw, 2.5rem);
   margin-bottom: 0;
   color: var(--primary-color);
   font-weight: 800;
@@ -52,7 +52,7 @@
 /* " / " 뒤의 부제목: 타이틀 아래 줄, 작은 폰트 */
 .project-detail-subtitle {
   display: block;
-  font-size: clamp(1.2rem, 2.6vw, 1.7rem);
+  font-size: clamp(1rem, 2vw, 1.3rem);
   font-weight: 600;
   color: var(--accent-color);
   letter-spacing: -0.01em;
