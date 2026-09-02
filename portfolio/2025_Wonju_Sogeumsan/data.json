@@ -8,13 +8,15 @@
     "kiosk"
   ],
   "images": [
-    "Forest_Main.jpg",
-    "Kiosk_Main.jpg",
-    "Forest_1.png",
+    "Forest_Main.png",
+    "Water_Effect.png",
+    "Kiosk_Main.png",
     "Kiosk_1.jpg",
+    "Kiosk_2.jpg",
     "Kiosk_3.jpg"
   ],
-  "thumbnail": "Forest_Main.jpg",
+  "thumbnail": "Forest_Main.png",
+  "thumbnailZoom": 1.18,
   "description": "영상, 음향, 인터랙티브 기술을 적극 활용한 몰입형 미디어아트 전시 공간",
   "descriptionTitle": "나만의 정원",
   "detailedDescription": [
@@ -26,8 +28,22 @@
   "location": "강원도, 원주",
   "latlng": [37.365717, 127.8255487],
   "country": "KR",
-  "lastmod": "2026-07-06",
+  "lastmod": "2026-09-02",
   "exhibits": [
+    {
+      "title": "인터랙티브 포토존",
+      "description": "키오스크에서 제작한 나만의 정원이 벽면 대형 스크린에 펼쳐지며, 바닥에는 파도가 첨벙첨벙 일렁이는 인터랙티브 프로젝션이 구현됩니다.\n\n바닥의 워터 이펙트는 관람객의 발걸음을 실시간으로 감지하여, 디딤돌을 밟거나 물에 발을 담글 때마다 그 자리에서 물결이 동심원으로 퍼져나갑니다. 개구리가 자유롭게 돌아다니고 나비가 날아다니는 생동감 넘치는 공간에서 인증샷을 촬영할 수 있는 몰입형 포토존입니다.",
+      "tags": [
+        "interactive",
+        "media-art",
+        "display",
+        "photo-zone"
+      ],
+      "images": [
+        "Water_Effect.png",
+        "Forest_Main.png"
+      ]
+    },
     {
       "title": "정원 꾸미기 키오스크",
       "description": "터치스크린에서 수국, 작약, 장미, 바람꽃, 양귀비 등 다양한 꽃과 나무를 드래그 앤 드롭으로 자유롭게 배치하여 나만의 정원을 디자인합니다.\n\n완성된 정원은 순차적으로 대형 프로젝션 스크린에 표시되며, 2대의 키오스크가 하나의 스크린과 연동되어 작동합니다.",
@@ -39,23 +55,10 @@
         "queue"
       ],
       "images": [
-        "Kiosk_Main.jpg",
+        "Kiosk_Main.png",
         "Kiosk_1.jpg",
+        "Kiosk_2.jpg",
         "Kiosk_3.jpg"
-      ]
-    },
-    {
-      "title": "인터랙티브 포토존",
-      "description": "키오스크에서 제작한 나만의 정원이 벽면 대형 스크린에 펼쳐지며, 바닥에는 파도가 첨벙첨벙 일렁이는 인터랙티브 프로젝션이 구현됩니다.\n\n물에 발을 담그면 물결이 퍼지는 인터랙션과 함께 디딤돌이 배치되어 있으며, 개구리가 자유롭게 돌아다니고 나비가 날아다니는 생동감 넘치는 공간에서 인증샷을 촬영할 수 있는 몰입형 포토존입니다.",
-      "tags": [
-        "interactive",
-        "media-art",
-        "display",
-        "photo-zone"
-      ],
-      "images": [
-        "Forest_Main.jpg",
-        "Forest_1.png"
       ]
     }
   ]

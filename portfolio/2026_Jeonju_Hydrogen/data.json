@@ -7,9 +7,10 @@
   "thumbnail": "",
   "description": "전주 수소 놀이 체험관 체험형 전시 콘텐츠",
   "year": "2026",
-  "location": "전주",
+  "location": "전북특별자치도, 전주",
+  "latlng": [35.8110561, 127.1630838],
   "country": "KR",
-  "lastmod": "2026-07-06",
+  "lastmod": "2026-09-02",
 
   "sections": [
     {

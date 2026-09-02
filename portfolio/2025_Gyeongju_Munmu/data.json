@@ -12,12 +12,13 @@
     "KakaoTalk_20250803_201124896.png"
   ],
   "thumbnail": "KakaoTalk_20250803_201124896.png",
+  "thumbnailPosition": "25% center",
   "description": "신라 문무대왕의 역사와 문화를 체험하는 인터랙티브 전시 공간",
   "year": "2025",
   "location": "경상북도, 경주",
   "latlng": [35.7449561, 129.4837642],
   "country": "KR",
-  "lastmod": "2026-07-06",
+  "lastmod": "2026-07-08",
 
   "sections": [
     {
@@ -33,7 +34,7 @@
           "title": "실크로드 바닥 인터랙티브",
           "description": "신라 시대 실크로드를 주제로 한 바닥 인터랙티브 체험입니다.\n\n세계지도 위에 동물들과 랜드마크가 표시되며, 관람객이 바닥을 밟으면 실크로드 무역 경로를 따라 다양한 문화와 교류의 역사를 탐험할 수 있습니다.",
           "tags": ["interactive", "display", "education"],
-          "images": []
+          "images": ["20251111_110130.jpeg", "20251105_022234.png"]
         },
         {
           "title": "만파식적 리듬게임",
@@ -45,13 +46,13 @@
           "title": "신라 병사 라이브 스케치",
           "description": "어린이들이 신라 병사 그림을 직접 색칠하고, 완성된 작품을 스캔하면 벽면 스크린에서 생생한 애니메이션으로 살아 움직입니다.\n\n2대의 스캐너를 통해 작품을 등록하면 내가 채색한 병사가 화면 속에서 활약하는 모습을 볼 수 있는 창작 체험입니다.",
           "tags": ["interactive", "customization", "display", "experience"],
-          "images": []
+          "images": ["20251023_033159.jpeg"]
         },
         {
           "title": "오재미 던지기 게임",
           "description": "전통 놀이인 오재미 던지기를 벽면 인터랙티브로 즐기는 체험입니다.\n\n센서가 오재미의 움직임을 감지하여 화면 속 해적들을 맞추면 사라지며, 신라 시대 놀이 문화를 현대적으로 재해석한 액션 게임입니다.",
           "tags": ["game", "interactive", "experience"],
-          "images": []
+          "images": ["20251023_033211.jpeg"]
         }
       ]
     }
