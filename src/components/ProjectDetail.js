@@ -140,16 +140,24 @@ const ProjectDetail = () => {
 
           <div className="project-detail-meta">
             <span className="project-meta-item">
-              <strong>년도:</strong> {project.year}
+              <strong>년도</strong> {project.year}
             </span>
             {project.location && (
               <span className="project-meta-item">
-                <strong>위치:</strong> {project.location}
+                <strong>위치</strong> {project.location}
               </span>
             )}
             <div className={`project-detail-tags ${project.tags.filter(tag => tag !== 'solution').length > 6 ? 'tags-wrap' : ''}`}>
               {project.tags.filter(tag => tag !== 'solution').map(tag => (
-                <span key={tag} className="project-detail-tag">#{getTagLabel(tag)}</span>
+                <button
+                  key={tag}
+                  type="button"
+                  className="project-detail-tag"
+                  title={`'${getTagLabel(tag)}' 태그의 프로젝트 보기`}
+                  onClick={() => router.push(`/portfolio?tag=${encodeURIComponent(tag)}`)}
+                >
+                  #{getTagLabel(tag)}
+                </button>
               ))}
             </div>
           </div>

@@ -94,13 +94,15 @@ const LocationMap = () => {
         // 라벨은 도시당 하나, 점들의 중심에 배치. 북 → 남 순 정렬.
         const list = Object.entries(grouped)
           .map(([name, projs]) => {
+            // 도시 안에서는 최신 연도 우선
+            projs.sort((a, b) => (parseInt(b.year) || 0) - (parseInt(a.year) || 0));
             const base = CITY_COORDS[name];
             const points = projs.map((p) => {
               const pos =
                 Array.isArray(p.latlng) && p.latlng.length === 2
                   ? project(p.latlng[0], p.latlng[1])
                   : { x: base.x, y: base.y };
-              return { id: p.id, ...pos };
+              return { id: p.id, year: parseInt(p.year) || 0, ...pos };
             });
             const x = Math.round(points.reduce((s, p) => s + p.x, 0) / points.length);
             const y = Math.round(points.reduce((s, p) => s + p.y, 0) / points.length);
@@ -120,6 +122,10 @@ const LocationMap = () => {
   if (cities.length === 0) return null;
 
   const totalProjects = cities.reduce((sum, c) => sum + c.projects.length, 0);
+
+  // 최신 연도일수록 점을 진하게 (1년 지날 때마다 20%씩 옅어짐, 최소 35%)
+  const maxYear = Math.max(...cities.flatMap((c) => c.points.map((p) => p.year)));
+  const dotOpacity = (year) => Math.max(0.35, 1 - (maxYear - year) * 0.2);
 
   // 북 → 남 순의 도시 목록을 권역 단위로 묶기
   const groups = [];
@@ -199,7 +205,13 @@ const LocationMap = () => {
                 {city.points.map((pt) => (
                   <g key={pt.id}>
                     <circle className="marker-halo" cx={pt.x} cy={pt.y} r="10" />
-                    <circle className="marker-dot" cx={pt.x} cy={pt.y} r="4" />
+                    <circle
+                      className="marker-dot"
+                      cx={pt.x}
+                      cy={pt.y}
+                      r="4"
+                      style={{ fillOpacity: dotOpacity(pt.year) }}
+                    />
                   </g>
                 ))}
                 <text
@@ -254,9 +266,6 @@ const LocationMap = () => {
                         >
                           <div className="location-city">
                             <span className="location-city-name">{city.name}</span>
-                            <span className="location-city-count">
-                              {city.projects.length}개 프로젝트
-                            </span>
                           </div>
                           <ul className="location-projects">
                             {city.projects.map((p) => (

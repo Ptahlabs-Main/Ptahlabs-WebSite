@@ -36,14 +36,20 @@
 
 .portfolio .section-title {
   text-align: left;
-  margin-bottom: 0;
+  margin-bottom: 0.4rem;
+}
+
+.portfolio-sub {
+  color: #8a8a80;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
 }
 
 /* 1단계: 카테고리 버튼 */
 .filter-categories {
   display: flex;
   justify-content: flex-end;
-  gap: 0.6rem;
+  gap: 1.4rem;
   flex-wrap: wrap;
   padding-bottom: 0.6rem;
 }
@@ -71,15 +77,16 @@
   border-bottom-color: var(--primary-color);
 }
 
-/* 2단계: 세부 태그 */
+/* 2단계: 세부 태그 — 실적 페이지 펼침 영역과 같은 세로 헤어라인 문법 */
 .filter-tags {
   display: flex;
   justify-content: flex-start;
   gap: 0.6rem;
   flex-wrap: wrap;
-  padding: 1.2rem 1.5rem;
-  background: rgba(122, 132, 92, 0.06);
-  border-radius: 16px;
+  padding: 4px 0 4px 22px;
+  border-left: 1px solid rgba(122, 132, 92, 0.45);
+  background: transparent;
+  border-radius: 0;
   width: 100%;
   margin: -24px 0 48px 0;
   position: relative;

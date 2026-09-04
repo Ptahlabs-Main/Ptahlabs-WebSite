@@ -9,22 +9,21 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 22px;
+  padding: 6px 0;
   background: transparent;
-  border: 1px solid rgba(40, 57, 26, 0.2);
-  border-radius: 100px;
-  color: var(--primary-color);
+  border: none;
+  color: #8a8a80;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
   cursor: pointer;
   transition: var(--transition);
+  white-space: nowrap;
 }
 
 .btn-back:hover {
-  background: var(--primary-color);
-  color: var(--light-color);
-  border-color: var(--primary-color);
-  transform: translateX(-5px);
+  color: var(--primary-color);
+  transform: translateX(-4px);
 }
 
 .project-detail-content {
@@ -33,7 +32,7 @@
 }
 
 .project-header {
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -63,20 +62,20 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0;
-  row-gap: 15px;
-  align-items: center;
-  margin-bottom: 30px;
-  padding: 20px 0;
+  row-gap: 12px;
+  align-items: baseline;
+  margin-bottom: 32px;
+  padding: 14px 0;
   background: transparent;
   border-radius: 0;
-  border-top: 1px solid rgba(40, 57, 26, 0.12);
-  border-bottom: 1px solid rgba(40, 57, 26, 0.12);
+  border-top: 1px solid rgba(40, 57, 26, 0.1);
+  border-bottom: 1px solid rgba(40, 57, 26, 0.1);
 }
 
 .project-thumbnail {
   width: 100%;
-  margin-bottom: 40px;
-  border-radius: 20px;
+  margin-bottom: 48px;
+  border-radius: 14px;
   overflow: hidden;
   box-shadow: var(--shadow-soft);
   text-align: center;
@@ -84,25 +83,33 @@
 
 .project-thumbnail img {
   width: 100%;
-  max-height: 500px;
+  max-height: 440px;
   object-fit: cover;
   display: block;
 }
 
 .project-meta-item {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-color);
-  padding: 0 25px;
-  border-right: 1px solid rgba(40, 57, 26, 0.15);
+  padding: 0 22px;
+  border-right: 1px solid rgba(40, 57, 26, 0.12);
+}
+
+.project-meta-item:first-child {
+  padding-left: 0;
 }
 
 .project-meta-item:last-of-type {
   border-right: none;
 }
 
+/* Contact 페이지의 작은 라벨과 같은 문법 */
 .project-meta-item strong {
-  color: var(--primary-color);
-  margin-right: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #8a8a80;
+  margin-right: 10px;
 }
 
 .project-detail-tags {
@@ -123,24 +130,34 @@
 }
 
 .project-detail-tag {
-  padding: 6px 14px;
-  background: rgba(122, 132, 92, 0.12);
-  color: #4a5a35;
-  border-radius: 8px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--accent-color);
+  border-radius: 0;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.project-detail-tag:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .project-detail-description {
-  margin-bottom: 70px;
+  margin-bottom: 48px;
   padding: 0;
   background: transparent;
   max-width: 760px;
 }
 
 .project-detail-description p {
-  font-size: 1.1rem;
-  line-height: 1.9;
+  font-size: 1.02rem;
+  line-height: 1.85;
   color: var(--text-color);
   margin-bottom: 20px;
 }
@@ -282,12 +299,12 @@
 .exhibits-grid {
   display: flex;
   flex-direction: column;
-  gap: 72px;
+  gap: 56px;
 }
 
 .exhibit-card {
   display: flex;
-  gap: 48px;
+  gap: 40px;
   align-items: flex-start;
   background: transparent;
   border: none;
@@ -400,8 +417,17 @@
   padding: 5px 12px;
   background: rgba(122, 132, 92, 0.12);
   color: #4a5a35;
+  border: none;
   border-radius: 8px;
   font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.exhibit-tag:hover {
+  background: rgba(122, 132, 92, 0.25);
+  color: var(--primary-color);
 }
 
 .exhibit-related-btn {
@@ -445,14 +471,14 @@
 
 /* 섹션 기반 포맷 시스템 */
 .project-sections {
-  margin-top: 40px;
+  margin-top: 32px;
 }
 
 .section {
-  margin-bottom: 70px;
-  padding: 48px 0 0 0;
+  margin-bottom: 52px;
+  padding: 38px 0 0 0;
   background: transparent;
-  border-top: 1px solid rgba(40, 57, 26, 0.12);
+  border-top: 1px solid rgba(40, 57, 26, 0.1);
 }
 
 .section h3 {
@@ -466,8 +492,8 @@
 
 /* Text Section */
 .section-text p {
-  font-size: 1.1rem;
-  line-height: 1.9;
+  font-size: 1.02rem;
+  line-height: 1.85;
   color: var(--text-color);
   white-space: pre-line;
   max-width: 760px;
@@ -544,7 +570,7 @@
 }
 
 .text-part p {
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   line-height: 1.8;
   color: var(--text-color);
 }

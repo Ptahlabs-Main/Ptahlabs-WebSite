@@ -151,7 +151,15 @@ const SectionRenderer = ({
                     {exhibit.tags && (
                       <div className="exhibit-tags">
                         {exhibit.tags.map(tag => (
-                          <span key={tag} className="exhibit-tag">#{getTagLabel(tag)}</span>
+                          <button
+                            key={tag}
+                            type="button"
+                            className="exhibit-tag"
+                            title={`'${getTagLabel(tag)}' 태그의 프로젝트 보기`}
+                            onClick={router ? () => router.push(`/portfolio?tag=${encodeURIComponent(tag)}`) : undefined}
+                          >
+                            #{getTagLabel(tag)}
+                          </button>
                         ))}
                       </div>
                     )}

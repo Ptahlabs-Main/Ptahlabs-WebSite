@@ -64,6 +64,17 @@ const Portfolio = () => {
     loadProjects();
   }, []);
 
+  // URL 쿼리(?tag=...)로 진입하면 해당 태그 필터를 자동 적용
+  // (프로젝트 상세 페이지의 태그 클릭에서 사용)
+  useEffect(() => {
+    if (!router.isReady || !tagsData) return;
+    const tag = router.query.tag;
+    if (typeof tag === 'string' && tagsData.tags[tag]) {
+      setSelectedCategory(tagsData.tags[tag].category);
+      setActiveFilter(tag);
+    }
+  }, [router.isReady, router.query.tag, tagsData]);
+
   // JSON 데이터에서 모든 고유 태그 추출 (solution 제외)
   const allTags = [...new Set(projectsData.flatMap(project =>
     (project.tags || []).filter(tag => tag !== 'solution')
@@ -158,7 +169,10 @@ const Portfolio = () => {
       <div className="container">
         {/* 타이틀(좌) + 카테고리 필터(우) */}
         <div className="portfolio-header">
-          <h2 className="section-title">포트폴리오</h2>
+          <div>
+            <h2 className="section-title">포트폴리오</h2>
+            <p className="portfolio-sub">{projectsData.length}개 프로젝트</p>
+          </div>
           <div className="filter-categories">
             <button
               className={`category-btn ${!selectedCategory ? 'active' : ''}`}
