@@ -32,6 +32,7 @@ public/
 scripts/
   generate-index.js     # 프로젝트 인덱스 생성
   generate-sitemap.js   # sitemap 생성 (hidden 제외)
+  generate-korea-map.js # 시·도 경계 SVG 경로(koreaMapData.js) 생성 (data/ne_korea_admin1.geojson 기반)
 src/
   components/
     1_Hero.js LogoLineMotif.js   # Hero (정적) + 로고 라인 문양 벡터
