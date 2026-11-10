@@ -24,6 +24,9 @@ const OUTPUT_FILE = path.join(__dirname, '../src/components/koreaMapData.js');
 const VIEWBOX = '0 0 405 690';
 const GAP = 1.5; // 인접 경계에서 각 시·도가 물러나는 폭 (지도 좌표 단위, 경계 사이 간격 = GAP * 2)
 const MIN_AREA = 1.5; // 이 면적(지도 좌표 단위²) 미만 조각(아주 작은 섬 등)은 버림
+// 원본에서 한 덩어리였던 폴리곤이 인접 경계를 잘라내며 여러 조각으로 갈라졌을 때,
+// 가장 큰 조각 대비 이 비율 미만인 조각은 버림 (좁은 띠가 잘려 떨어진 쪼가리 제거)
+const MIN_FRAGMENT_RATIO = 0.1;
 const CLEAN_TOLERANCE = 0.08; // 거의 일직선 위 꼭짓점 제거 허용치
 const SCALE = 1000; // Clipper 정수 좌표 스케일
 
@@ -53,12 +56,15 @@ const project = ([lng, lat]) => ({
   Y: Math.round((38.65 - lat) * 124 * SCALE),
 });
 
-// GeoJSON 지오메트리 → 방향이 정리된 Clipper 경로 배열
-function toPaths(geometry) {
+// GeoJSON 지오메트리 → 폴리곤(외곽 + 구멍)별로 방향이 정리된 Clipper 경로 배열
+function toPolygons(geometry) {
   const polygons = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
-  const rings = [];
-  polygons.forEach((polygon) => polygon.forEach((ring) => rings.push(ring.map(project))));
-  return ClipperLib.Clipper.SimplifyPolygons(rings, ClipperLib.PolyFillType.pftNonZero);
+  return polygons.map((polygon) =>
+    ClipperLib.Clipper.SimplifyPolygons(
+      polygon.map((ring) => ring.map(project)),
+      ClipperLib.PolyFillType.pftNonZero
+    )
+  );
 }
 
 // 경로들을 delta 만큼 바깥으로 넓힘 (겹치는 부분은 합쳐짐)
@@ -110,18 +116,30 @@ function generate() {
       console.warn(`매핑되지 않은 지역, 건너뜀: ${feature.properties.name}`);
       return;
     }
-    inputs.push({ name, paths: toPaths(feature.geometry) });
+    inputs.push({ name, polygons: toPolygons(feature.geometry) });
   });
 
   const regions = inputs.map((region) => {
-    const others = inputs.filter((r) => r !== region).flatMap((r) => r.paths);
-    const cut = subtract(region.paths, expand(others, GAP));
-    const cleaned = ClipperLib.Clipper.CleanPolygons(cut, CLEAN_TOLERANCE * SCALE).filter(
-      (p) => p.length >= 3 && area(p) >= MIN_AREA && !outsideViewbox(p)
-    );
+    const others = inputs.filter((r) => r !== region).flatMap((r) => r.polygons.flat());
+    const clip = expand(others, GAP);
+    let fragments = 0;
+
+    // 원본 폴리곤 하나씩 잘라내고, 갈라져 나온 자잘한 쪼가리는 버림
+    const cleaned = region.polygons.flatMap((polygon) => {
+      const cut = ClipperLib.Clipper.CleanPolygons(subtract(polygon, clip), CLEAN_TOLERANCE * SCALE).filter(
+        (p) => p.length >= 3 && area(p) >= MIN_AREA && !outsideViewbox(p)
+      );
+      const outers = cut.filter((p) => ClipperLib.Clipper.Orientation(p));
+      const holes = cut.filter((p) => !ClipperLib.Clipper.Orientation(p));
+      const largest = Math.max(0, ...outers.map(area));
+      const kept = outers.filter((p) => area(p) >= largest * MIN_FRAGMENT_RATIO);
+      fragments += outers.length - kept.length;
+      return [...kept, ...holes];
+    });
+
     const holes = cleaned.filter((p) => !ClipperLib.Clipper.Orientation(p)).length;
     console.log(
-      `  ${region.name}: 조각 ${cleaned.length - holes}개${holes ? ` (구멍 ${holes})` : ''}, 꼭짓점 ${cleaned.reduce((n, p) => n + p.length, 0)}개`
+      `  ${region.name}: 조각 ${cleaned.length - holes}개${holes ? ` (구멍 ${holes})` : ''}${fragments ? `, 잘린 쪼가리 ${fragments}개 제거` : ''}, 꼭짓점 ${cleaned.reduce((n, p) => n + p.length, 0)}개`
     );
     return { name: region.name, d: toPathData(cleaned) };
   });
