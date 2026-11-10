@@ -20,6 +20,7 @@ pages/                  # Next.js 페이지 (SSG)
   contact.js            # 연락처
   solution.js           # 솔루션 (메뉴 임시 숨김, URL 접근 가능)
   history.js            # 연혁 (메뉴 미노출, noindex)
+  lab.js                # Lab 실험작 (헤더 메뉴에는 없고 하단 페이지 목록으로 진입)
   project/[projectId].js# 프로젝트 상세 (동적)
 public/
   portfolio/            # 프로젝트별 독립 폴더 (data.json + 미디어)
@@ -37,8 +38,10 @@ src/
   components/
     1_Hero.js LogoLineMotif.js   # Hero (정적) + 로고 라인 문양 벡터
     2_Portfolio.js 3_Solution.js 5_Contact.js 6_History.js
+    8_Lab.js                     # Lab 페이지 (실험작 목록)
+    lab/LogoGlass3D.js lab/logoGlassScene.js  # 실험작 '유리 로고' (three.js, 이 페이지에서만 로드)
     ProjectDetail.js sections/SectionRenderer.js
-    layouts/Header.js layouts/Footer.js
+    layouts/Header.js layouts/Footer.js       # Footer: 하단 페이지 목록(FOOTER_PAGES)
   styles/               # 컴포넌트별 CSS, App.css에서 @import 통합
 next.config.js          # static export 설정
 ```
@@ -50,6 +53,8 @@ next.config.js          # static export 설정
 - **Hero (홈 전용 풀스크린)**: 대표 프로젝트 이미지 캐러셀(`HERO_SLIDES` 배열에 `{id, title, image}` 추가) + 다크 스크림. 자동 넘김 없이 휠/스와이프로만 전환, 우측 세로 라벨 아래 세로 도트 인디케이터. 좌상단에 유백색 유리 로고 마크(로고 면 5개를 면별 clip-path 조각으로 분리 + backdrop blur) + 텍스트. 로고 마크는 마우스에 반응 — 마우스 방향으로 기울고(`MAX_TILT_DEG`/`TILT_EASE`로 조절) 반사광이 따라오며, 마우스가 올라간 면만 블러가 풀림(`.is-clear`). 터치 기기에서는 정적. 하단 버튼은 현재 슬라이드 프로젝트 상세로 이동. 헤더는 평소 숨김 → 휠·상단 마우스 이동 시 흰색 메뉴로 3초간 표시(`header-overlay`).
 - **동적 포트폴리오**: 각 프로젝트 `data.json`을 런타임 fetch. 폴더만 추가하면 인식. 태그 필터, 카드 UI, 이미지/비디오 썸네일, 썸네일 없으면 제목 플레이스홀더.
 - **섹션 콘텐츠 시스템**: `text` / `image-gallery` / `text-image` / `text-image-sequence` / `exhibits` 5종. `SectionRenderer`로 렌더링, JSON으로 관리.
+- **Lab (`/lab`)**: 프로젝트가 되기 전의 실험작 모음. 첫 실험작 '유리 로고'는 로고 마크의 면을 벽으로 세운 3D 유리 건물로, 방위 45°·고도 35.26° 시점에서 원본 로고와 겹침. 화면에는 글 없이 작품과 버튼(컬러·브랜드·로고 시점)만 둠(제목은 `lab-hidden-title`로 숨김, 이름이 정해지면 `8_Lab.js`의 주석 자리에 넣음). 연출 2종 — 컬러(그라데이션 유리), 브랜드(테마색 유리). 둘 다 마우스 근처 유리가 밝아지는 조명이 있음. 무대는 페이지 배경색(`--light-color`)으로 그려 테두리 없이 이어지며, 라이트/다크에 따라 그라데이션(`PALETTES`의 `light`/`dark`)이 바뀌고 바닥 빛·블룸은 다크에서만 켜짐. 처음엔 자동 회전, 드래그하면 멈추고 '로고 시점'을 누르면 원위치 후 다시 회전. 반투명 판의 그리는 순서는 BSP 트리로 계산(중심 거리 정렬은 회전 시 색이 튐). 연출은 `logoGlassScene.js`의 `LOOKS`/`PALETTES`, 버튼은 `LogoGlass3D.js`의 `LOOK_BUTTONS`에서 관리. three.js는 dynamic import라 Lab 페이지에서만 로드됨. 컴포넌트 안에서 `<header>` 태그 사용 금지(Header.css가 header 요소를 상단 고정으로 잡음).
+- **하단 페이지 목록**: 푸터에 전체 페이지 링크(`Footer.js`의 `FOOTER_PAGES`). 헤더 메뉴에 없는 Lab도 여기서 진입.
 - **솔루션↔전시 양방향 연결**: `relatedSolution`으로 상호 참조.
 - **SEO**: SSG 사전 렌더링, 메타/OG/Twitter/JSON-LD, sitemap·robots 자동.
 - **반응형**: 모바일·태블릿·데스크톱, clamp() 유동 폰트, 햄버거 메뉴.
@@ -118,6 +123,7 @@ npm run deploy   # 인덱스·sitemap 생성 → 빌드 → gh-pages 브랜치 �
 
 ## 변경 이력 (요약)
 
+- **2026-11**: Lab 페이지 추가(실험작 '유리 로고' — 로고 3D 유리 건물, 컬러·브랜드 연출), 푸터에 하단 페이지 목록 추가. three.js를 Lab 전용으로 재도입(`three` 의존성, dynamic import).
 - **2026-09**: 홈을 풀스크린 히어로 전용으로 개편(유백색 유리 로고, 휠 전환 캐러셀, 숨김형 흰색 오버레이 헤더). Portfolio/Locations/Contact를 별도 페이지로 분리하고 헤더 내비를 페이지 라우팅으로 전환, 솔루션 메뉴 임시 숨김. 상세 페이지 제목 ` / ` 기준 부제목 분리. 설치 실적 지도 권역별 접이식 리스트. 소금산 콘텐츠 갱신(워터 이펙트), 신규 프로젝트 위치 등록(전주·양산·울산·밀양), 썸네일 조절 옵션(`thumbnailPosition`/`thumbnailZoom`) 추가.
 - **2026-07**: Hero 최종 디자인 — 크림 배경 + 로고 라인 문양(`LogoLineMotif.js`) + 와이드 트래킹 타이포 + 좌우 세로 라벨(모바일 상하 엇갈림). 서브문구·모서리 로고/이메일 제거, 첫 화면 베이지 꽉 채움. 저장소를 `Ptahlabs-Main`으로 이전, 배포를 gh-pages + 내장 Pages 빌드(Actions)로 정상화. three.js 계열·CI 페이지 제거. 프로젝트 상세 에디토리얼 스타일, 포트폴리오 미니멀 그리드.
 - **2025-12**: 휴식정원 프로젝트, 섹션 텍스트/제목 줄바꿈. package.json 정리(약 1000→139), 연혁 페이지, 정보 키오스크 솔루션, 부산 민주공원 콘텐츠, 카드 UI 개편, 비디오 썸네일.
