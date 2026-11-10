@@ -28,44 +28,56 @@ const Hero = () => {
   const [slide, setSlide] = useState(0);
   const brandRef = useRef(null);
   const lastMoveRef = useRef(0);
+  const slideRef = useRef(0);
   const router = useRouter();
   const current = HERO_SLIDES[slide];
 
-  // 스크롤(휠)·스와이프로 슬라이드 전환
   useEffect(() => {
-    if (HERO_SLIDES.length < 2) return;
+    slideRef.current = slide;
+  }, [slide]);
 
-    const step = (dir) => {
-      const now = Date.now();
-      if (now - lastMoveRef.current < WHEEL_COOLDOWN_MS) return;
-      lastMoveRef.current = now;
-      setSlide((s) => (s + dir + HERO_SLIDES.length) % HERO_SLIDES.length);
-    };
-
+  // 히어로 상단에서 휠: 슬라이드를 한 장씩 넘기고, 마지막 장에서 아래 섹션으로 이어서 이동
+  useEffect(() => {
     const onWheel = (e) => {
+      if (window.scrollY > 8) return; // 히어로를 지나면 기본 스크롤에 맡김
       if (Math.abs(e.deltaY) < 10) return; // 트랙패드 미세 입력 무시
-      step(e.deltaY > 0 ? 1 : -1);
+
+      const now = Date.now();
+      if (now - lastMoveRef.current < WHEEL_COOLDOWN_MS) {
+        e.preventDefault(); // 전환 애니메이션 중에는 스크롤 고정
+        return;
+      }
+
+      const down = e.deltaY > 0;
+      const s = slideRef.current;
+
+      if (down && s < HERO_SLIDES.length - 1) {
+        e.preventDefault();
+        lastMoveRef.current = now;
+        setSlide(s + 1);
+      } else if (!down && s > 0) {
+        e.preventDefault();
+        lastMoveRef.current = now;
+        setSlide(s - 1);
+      } else if (down && s === HERO_SLIDES.length - 1) {
+        // 마지막 슬라이드: 설치 실적 섹션으로 스크롤 전환
+        e.preventDefault();
+        lastMoveRef.current = now;
+        const el = document.getElementById('locations');
+        if (!el) return;
+        const y = el.getBoundingClientRect().top + window.scrollY;
+        // 홈의 lerp 스크롤러가 있으면 그쪽으로, 없으면 기본 스무스 스크롤
+        const handled = !window.dispatchEvent(
+          new CustomEvent('ptah:lerp-scroll', { detail: { y }, cancelable: true })
+        );
+        if (!handled) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
     };
 
-    let touchY = null;
-    const onTouchStart = (e) => {
-      touchY = e.touches[0].clientY;
-    };
-    const onTouchEnd = (e) => {
-      if (touchY === null) return;
-      const dy = touchY - e.changedTouches[0].clientY;
-      if (Math.abs(dy) > 50) step(dy > 0 ? 1 : -1);
-      touchY = null;
-    };
-
-    window.addEventListener('wheel', onWheel, { passive: true });
-    window.addEventListener('touchstart', onTouchStart, { passive: true });
-    window.addEventListener('touchend', onTouchEnd, { passive: true });
-    return () => {
-      window.removeEventListener('wheel', onWheel);
-      window.removeEventListener('touchstart', onTouchStart);
-      window.removeEventListener('touchend', onTouchEnd);
-    };
+    window.addEventListener('wheel', onWheel, { passive: false });
+    return () => window.removeEventListener('wheel', onWheel);
   }, []);
 
   const handleProjectClick = (e) => {
@@ -132,6 +144,12 @@ const Hero = () => {
             ))}
           </div>
         )}
+      </div>
+
+      {/* 좌하단 스크롤 유도 */}
+      <div className="hero-scroll-cue" aria-hidden="true">
+        <span className="hero-scroll-cue-line" />
+        <span className="hero-scroll-cue-label">SCROLL</span>
       </div>
 
       {/* 하단: 현재 슬라이드 프로젝트로 이동하는 버튼 */}

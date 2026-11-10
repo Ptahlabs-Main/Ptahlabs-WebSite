@@ -23,7 +23,7 @@
 .history-description .highlight {
   font-weight: 700;
   color: var(--primary-color);
-  background: linear-gradient(120deg, rgba(122, 132, 92, 0.15) 0%, rgba(194, 184, 163, 0.15) 100%);
+  background: linear-gradient(120deg, rgba(var(--accent-rgb), 0.15) 0%, rgba(194, 184, 163, 0.15) 100%);
   padding: 2px 8px;
   border-radius: 4px;
 }

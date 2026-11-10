@@ -1,5 +1,6 @@
 /* 기본 스타일 및 변수 */
 :root {
+  color-scheme: light;
   --primary-color: #28391A;
   --secondary-color: #C2B8A3;
   --accent-color: #7A845C;
@@ -12,6 +13,46 @@
   --gradient-secondary: linear-gradient(135deg, #7A845C 0%, #C2B8A3 100%);
   --shadow-soft: 0 10px 40px rgba(44, 44, 44, 0.1);
   --shadow-hover: 0 20px 60px rgba(44, 44, 44, 0.15);
+
+  /* 테마 토큰: rgba(var(--ink-rgb), a) 형태로 헤어라인·틴트 농도를 그대로 유지 */
+  --ink-rgb: 40, 57, 26;        /* 진한 카키 (헤어라인·보더·틴트) */
+  --accent-rgb: 122, 132, 92;   /* 연한 카키 (세로 라인·태그 배경) */
+  --muted-color: #8a8a80;       /* 보조 텍스트 */
+  --surface-color: #ffffff;     /* 카드 표면 */
+  --surface-dim: #f5f5f5;       /* 이미지 레터박스 배경 */
+  --tag-text: #4a5a35;          /* 전시물 태그 글자 */
+  --primary-hover: #35491f;     /* 버튼 호버 */
+  --header-glass: rgba(250, 249, 246, 0.72);
+  --header-glass-solid: rgba(250, 249, 246, 0.95);
+  --footer-bg: #28391A;
+  --footer-text: #FAF9F6;
+  --footer-muted: rgba(250, 249, 246, 0.8);
+}
+
+/* 다크모드: OS 설정(prefers-color-scheme)을 따라 자동 전환 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --primary-color: #B7C693;   /* 밝은 세이지 (제목·강조 텍스트) */
+    --accent-color: #9AA678;
+    --light-color: #15180F;     /* 배경: 어두운 카키 블랙 */
+    --text-color: #DEDDD3;
+    --glass-bg: rgba(222, 221, 211, 0.08);
+    --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.45);
+    --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.6);
+
+    --ink-rgb: 222, 227, 208;
+    --accent-rgb: 154, 166, 120;
+    --muted-color: #8f9083;
+    --surface-color: #1E2317;
+    --surface-dim: #10130B;
+    --tag-text: #C3CFA3;
+    --primary-hover: #C9D6A8;
+    --header-glass: rgba(21, 24, 15, 0.72);
+    --header-glass-solid: rgba(21, 24, 15, 0.95);
+    --footer-bg: #0F120A;
+    --footer-muted: rgba(250, 249, 246, 0.55);
+  }
 }
 
 * {
@@ -24,12 +65,12 @@
 /* 텍스트 선택 색상 */
 ::selection {
   background-color: var(--secondary-color);
-  color: var(--primary-color);
+  color: var(--dark-color);
 }
 
 ::-moz-selection {
   background-color: var(--secondary-color);
-  color: var(--primary-color);
+  color: var(--dark-color);
 }
 
 body {
@@ -52,6 +93,19 @@ body {
 /* 콘텐츠가 짧은 페이지에서도 푸터가 항상 바닥에 붙도록 */
 .App > .footer {
   margin-top: auto;
+}
+
+/* 홈 섹션 리빌 모션: 스크롤로 진입하면 아래에서 떠오르며 나타남 */
+.home-reveal {
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.home-reveal.revealed {
+  opacity: 1;
+  transform: none;
 }
 
 a {
@@ -82,7 +136,7 @@ a {
 
 .btn:hover {
   transform: translateY(-2px);
-  background: #35491f;
+  background: var(--primary-hover);
   box-shadow: 0 8px 24px rgba(40, 57, 26, 0.25);
 }
 

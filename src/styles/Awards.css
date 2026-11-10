@@ -10,7 +10,7 @@
 }
 
 .awards-empty {
-  color: #8a8a80;
+  color: var(--muted-color);
   font-size: 0.95rem;
 }
 
@@ -23,11 +23,11 @@
   align-items: baseline;
   gap: 24px;
   padding: 18px 8px;
-  border-bottom: 1px solid rgba(40, 57, 26, 0.1);
+  border-bottom: 1px solid rgba(var(--ink-rgb), 0.1);
 }
 
 .award-item:first-child {
-  border-top: 1px solid rgba(40, 57, 26, 0.1);
+  border-top: 1px solid rgba(var(--ink-rgb), 0.1);
 }
 
 .award-year {
@@ -48,7 +48,7 @@
   margin-left: auto;
   flex-shrink: 0;
   font-size: 0.85rem;
-  color: #8a8a80;
+  color: var(--muted-color);
 }
 
 @media (max-width: 768px) {

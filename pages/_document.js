@@ -4,7 +4,8 @@ export default function Document() {
   return (
     <Html lang="ko">
       <Head>
-        <meta name="theme-color" content="#28391A" />
+        <meta name="theme-color" content="#28391A" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#15180F" media="(prefers-color-scheme: dark)" />
 
         {/* Favicon */}
         <link rel="icon" type="image/png" href="/images/logo/2x/SignColor@2x.png" />

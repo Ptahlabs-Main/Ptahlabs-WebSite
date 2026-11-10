@@ -1,6 +1,6 @@
 /* 헤더 네비게이션 */
 header {
-  background: rgba(250, 249, 246, 0.72);
+  background: var(--header-glass);
   backdrop-filter: blur(16px) saturate(160%);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
   position: fixed;
@@ -9,7 +9,7 @@ header {
   width: 100%;
   z-index: 1000;
   transition: var(--transition);
-  border-bottom: 1px solid rgba(40, 57, 26, 0.04);
+  border-bottom: 1px solid rgba(var(--ink-rgb), 0.04);
 }
 
 .header-container {

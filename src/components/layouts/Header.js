@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [pastHero, setPastHero] = useState(false); // 홈에서 히어로를 지났는지 (오버레이 ↔ 일반 헤더 전환)
   const router = useRouter();
   const location = { pathname: router.pathname };
 
@@ -64,14 +65,18 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]);
 
-  // 메인 페이지: 헤더는 평소 숨김, 휠·터치·상단 마우스 이동 시에만 잠시 표시
+  // 메인 페이지: 히어로 구간에선 숨김형 오버레이 헤더(휠·상단 마우스 시 잠시 표시),
+  // 히어로를 지나면 일반 헤더로 전환되어 고정 표시
   useEffect(() => {
     if (location.pathname !== '/') return;
     const header = document.querySelector('header');
     if (!header) return;
 
     let hideTimer = null;
+    const isPast = () => window.scrollY > window.innerHeight * 0.5;
+
     const hide = () => {
+      if (isPast()) return;
       header.style.opacity = '0';
       header.style.transform = 'translateY(-16px)';
       header.style.pointerEvents = 'none';
@@ -83,22 +88,39 @@ const Header = () => {
       if (hideTimer) clearTimeout(hideTimer);
       hideTimer = setTimeout(hide, 3000);
     };
+    const onScroll = () => {
+      const past = isPast();
+      setPastHero(past);
+      if (past) {
+        if (hideTimer) clearTimeout(hideTimer);
+        header.style.opacity = '1';
+        header.style.transform = 'translateY(0)';
+        header.style.pointerEvents = '';
+        header.style.padding = '5px 0';
+      } else {
+        header.style.padding = '';
+        hide();
+      }
+    };
     const onMouseMove = (e) => {
       if (e.clientY < 90) show();
     };
 
     hide();
     window.addEventListener('wheel', show, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('touchstart', show, { passive: true });
     window.addEventListener('mousemove', onMouseMove, { passive: true });
     return () => {
       if (hideTimer) clearTimeout(hideTimer);
       window.removeEventListener('wheel', show);
+      window.removeEventListener('scroll', onScroll);
       window.removeEventListener('touchstart', show);
       window.removeEventListener('mousemove', onMouseMove);
       header.style.opacity = '';
       header.style.transform = '';
       header.style.pointerEvents = '';
+      header.style.padding = '';
     };
   }, [location.pathname]);
 
@@ -128,10 +150,14 @@ const Header = () => {
   };
 
   return (
-    <header className={location.pathname === '/' ? 'header-overlay' : ''}>
+    <header className={location.pathname === '/' && !pastHero ? 'header-overlay' : ''}>
       <div className="container header-container">
         <a href="/" className="logo" onClick={handleHomeClick}>
-          <img src="/images/logo/2x/SignColor@2x.png" alt="PTAH LABS" className="logo-image" />
+          {/* 다크모드에서는 White 로고로 자동 전환 */}
+          <picture>
+            <source srcSet="/images/logo/2x/White@2x.png" media="(prefers-color-scheme: dark)" />
+            <img src="/images/logo/2x/SignColor@2x.png" alt="PTAH LABS" className="logo-image" />
+          </picture>
           PTAHLABS
         </a>
 
