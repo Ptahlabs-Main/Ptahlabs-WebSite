@@ -25,6 +25,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://ptahlabs.co.kr/lab/</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://ptahlabs.co.kr/project/2025_Busan_Democracy/</loc>
     <lastmod>2026-07-08</lastmod>
     <changefreq>monthly</changefreq>
