@@ -164,7 +164,11 @@ const ProjectDetail = () => {
 
           {project.thumbnail && (
             <div className="project-thumbnail">
-              <img src={project.thumbnail} alt={project.title} />
+              {/\.(mp4|webm|ogg|mov)$/i.test(project.thumbnail) ? (
+                <video src={project.thumbnail} muted loop playsInline autoPlay />
+              ) : (
+                <img src={project.thumbnail} alt={project.title} />
+              )}
             </div>
           )}
 
