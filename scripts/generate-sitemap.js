@@ -24,6 +24,8 @@ const loadProjects = () => {
       const data = JSON.parse(fs.readFileSync(dataFile, 'utf-8'));
       // 숨김 프로젝트는 검색 엔진에 노출하지 않음
       if (data.hidden === true) return;
+      // 솔루션 제품 페이지는 솔루션 메뉴 숨김 기간 동안 제외 (메뉴 복구 시 이 줄 제거)
+      if (data.isSolution === true) return;
       projects.push(data);
     }
   });
@@ -36,6 +38,7 @@ const generateSitemap = () => {
   const baseUrl = 'https://ptahlabs.co.kr';
   const projects = loadProjects();
 
+  // 솔루션(/solution/)은 메뉴 숨김 기간 동안 sitemap에서 제외 (메뉴 복구 시 엔트리 재추가)
   let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -46,12 +49,6 @@ const generateSitemap = () => {
   </url>
   <url>
     <loc>${baseUrl}/portfolio/</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/solution/</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
